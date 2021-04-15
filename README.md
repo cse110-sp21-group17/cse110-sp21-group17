@@ -1,1 +1,2 @@
-# cse110-sp21-group17
+# Team Name
+[Team wiki:](admin/team.md)
