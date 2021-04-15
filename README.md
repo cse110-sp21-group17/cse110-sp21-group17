@@ -1,2 +1,2 @@
 # Team Name
-[Team wiki:](admin/team.md)
+[Team Page](admin/team.md)
