@@ -1,6 +1,7 @@
 <div>
     <img style="vertical-align: text-bottom;" src="https://octodex.github.com/images/minion.png" width="50" height="50"/>
-</div><br>
+</div>
+
 # Team Name
 ## Team Members:
 - Andrew Martinez 
