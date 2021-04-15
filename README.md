@@ -1,2 +1,2 @@
-# Team Name
+# Code Monkeys
 [Team Page](admin/team.md)
