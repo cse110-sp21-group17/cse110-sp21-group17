@@ -11,10 +11,10 @@
 ## Members:
 - Andrew Martinez 
   - Experience in C++ & Java
-  - [github](https://github.com/anm004)
+  - [github](https://anm004.github.io/CSE110Pages/)
 - Alec Smith
   -  Experience in teaching Javascript for video games
-  - [github](https://anm004.github.io/CSE110Pages/)  
+  - [github]()  
 - Quach, Amanda
   - Experience in HTML & CSS
   - [github](https://github.com/amquach00)  
