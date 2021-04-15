@@ -39,5 +39,5 @@
 - Jason Sather
   - Experienced in HTML & CSS & Java
   - victom of a horrible hair cut during quarantine time :(
-  - [github](https://github.com/JasonSatherr)
+  - [github](https://jasonsatherr.github.io/Death/)
 - Melody Yu
