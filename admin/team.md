@@ -3,7 +3,12 @@
 </div>
 
 # Team Name
-## Team Members:
+## Our Values:
+- **Respect**: Always show respect first before challenge others
+- **Innovation**: Willing to try new things with passions
+- **open communication**: Try our best to build in a more engaged and trusting team
+- **Teamwork**: Collaboration and Brainstorming are keywords that lead to successful group work
+## Members:
 - Andrew Martinez 
   - Experience in C++ & Java
   - [github](https://github.com/anm004)
