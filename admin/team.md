@@ -1,5 +1,5 @@
 <div>
-    <img style="vertical-align: text-bottom;" src="/source/imgs/logo.png" width="150" height="150"/>
+    <img style="vertical-align: text-bottom;" src="/source/imgs/logo.png" width="300" height="300"/>
 </div>
 
 # Code Monkeys
