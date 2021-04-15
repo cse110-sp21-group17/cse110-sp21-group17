@@ -14,17 +14,17 @@
   - [github](https://anm004.github.io/CSE110Pages/)
 - Alec Smith
   -  Experience in teaching Javascript for video games
-  - [github]()  
+  - [github](https://solochristo.github.io/cse110_lab1/)  
 - Quach, Amanda
   - Experience in HTML & CSS
-  - [github](https://github.com/amquach00)  
+  - [github](https://amquach00.github.io/CSE110-lab1/)  
 - David Cao 
   - Experience in design
-  - [github](https://github.com/dcao) 
+  - [github](https://dcao.github.io/) 
 - Pablo Gratas
   - 3-rd year computer science major 
   - like cycling & cooking
-  - [github](https://github.com/PabloGratas) 
+  - [github](https://pablogratas.github.io/) 
 - Juan Ding
   - 3-rd year computer science major from Warren
   - love cooking & coding
@@ -35,7 +35,7 @@
 - Steven Ramirez
   - 3-rd year computer engineering major from Revelle college  
   - Currently on an ultimate frisbee team & love snowboarding
-  - [github](https://github.com/sjramirez)  
+  - [github](https://sjramirez.github.io/CSE110-Lab1/)  
 - Jason Sather
   - Experienced in HTML & CSS & Java
   - victom of a horrible hair cut during quarantine time :(
