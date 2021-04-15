@@ -14,7 +14,7 @@
   - [github](https://github.com/anm004)
 - Alec Smith
   -  Experience in teaching Javascript for video games
-  - [github](https://github.com/SoloChristo)  
+  - [github](https://anm004.github.io/CSE110Pages/)  
 - Quach, Amanda
   - Experience in HTML & CSS
   - [github](https://github.com/amquach00)  
@@ -28,10 +28,10 @@
 - Juan Ding
   - 3-rd year computer science major from Warren
   - love cooking & coding
-  - [github](https://github.com/dingjuan)
+  - [github](https://dingjuan.github.io/CSE-110---Juan-Ding/)
 - Enzo Han
   - 3-rd year computer science major & 5 years dancer!
-  - [github](https://github.com/enzohnnn)
+  - [github](https://enzohnnn.github.io/Lab-Week-1/)
 - Steven Ramirez
   - 3-rd year computer engineering major from Revelle college  
   - Currently on an ultimate frisbee team & love snowboarding
