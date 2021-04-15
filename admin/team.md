@@ -1,8 +1,8 @@
 <div>
-    <img style="vertical-align: text-bottom;" src="https://octodex.github.com/images/minion.png" width="50" height="50"/>
+    <img style="vertical-align: text-bottom;" src="/source/imgs/logo.png" width="50" height="50"/>
 </div>
 
-# Team Name
+# Code Monkeys
 ## Our Values:
 - **Respect**: Always show respect first before challenge others
 - **Innovation**: Willing to try new things with passions
