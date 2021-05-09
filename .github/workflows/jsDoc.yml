@@ -9,7 +9,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@v2
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -20,13 +19,21 @@ jobs:
           output_dir: ./out
           front_page: README.md
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Commit files
+        id: commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git add --all
+          if [-z "$(git status --porcelain)"]; then
+            echo "::set-output name=push::false"
+          else
+            git commit -m "Add changes" -a
+            echo "::set-output name=push::true"
+          fi
+        shell: bash
+      - name: Push changes
+        if: steps.commit.outputs.push == 'true'
+        uses: ad-m/github-push-action@master
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./out
-        
-      - name: Generate Documentation
-      # You may pin to the exact commit or the version.
-      # uses: vargiuscuola/genshdoc@0f2a1895670c474de679631a33eae9369743af5f
-        uses: vargiuscuola/genshdoc@v1.0
+          github_token: ${{ secrets.GITHUB_TOKEN }}
