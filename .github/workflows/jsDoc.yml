@@ -1,4 +1,4 @@
-name: JSDoc generator
+name: GitHub pages
 
 on:
   push:
