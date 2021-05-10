@@ -22,7 +22,7 @@ jobs:
         uses: andstor/jsdoc-action@v1
         with:
           recurse: true
-          source_dir: ./src/
+          source_dir: ./src
           output_dir: ./out
           front_page: README.md
 
@@ -38,8 +38,7 @@ jobs:
             git commit -m "Add changes" -a
             echo "::set-output name=push::true"
           fi
-          git remote prune origin
-          git fetch --all
+
         shell: bash
       - name: Push changes
         if: steps.commit.outputs.push == 'true'
