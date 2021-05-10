@@ -1,13 +1,3 @@
-/**
- * 
- * @param {int} a First param to add
- * @param {int} b Second param to add 
- * @returns {int} The sum
- */
- function sum(a, b) {
-    return a + b;
-  }
-  
   
   /**
    * 
@@ -18,5 +8,3 @@
   function difference(a, b) {
     return a + b;
   }
-//module.exports = difference;
-module.exports = sum;
