@@ -38,6 +38,7 @@ jobs:
             echo "::set-output name=push::true"
           fi
           git remote prune origin
+          git fetch --all
         shell: bash
       - name: Push changes
         if: steps.commit.outputs.push == 'true'
