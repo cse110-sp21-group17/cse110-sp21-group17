@@ -2,12 +2,18 @@ name: GitHub pages
 
 on:
   push:
-    branches:
-      - master
+    branches:    
+      - '*'         # matches every branch that doesn't contain a '/'
+      - '*/*'       # matches every branch containing a single '/'
+      - '**'        # matches every branch
+      - '!master'   # excludes master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '12', '14' ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -37,3 +43,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
