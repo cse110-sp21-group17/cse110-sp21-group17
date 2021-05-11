@@ -18,4 +18,14 @@
   return a * b;
 }
 
+/**
+ * 
+ * @param {int} a Thing to divide
+ * @param {int} b Thing to divide my
+ * @returns {int} Dividend
+ */
+ function divide(a, b) {
+  return a / b;
+}
+
 module.exports = sum;
