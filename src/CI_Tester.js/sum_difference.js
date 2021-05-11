@@ -8,15 +8,14 @@
     return a + b;
   }
   
-  
-  /**
-   * 
-   * @param {int} a base
-   * @param {int} b subtractor
-   * @returns difference
-   */
-  function difference(a, b) {
-    return a + b;
-  }
-//module.exports = difference;
+/**
+ * 
+ * @param {int} a First param to multiply
+ * @param {int} b Second param to multiply 
+ * @returns {int} The product
+ */
+ function mult(a, b) {
+  return a * b;
+}
+
 module.exports = sum;

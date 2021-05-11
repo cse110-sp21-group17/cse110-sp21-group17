@@ -1,14 +1,20 @@
-name: JSDoc generator
+name: JSDocs
 
 on:
   push:
-    branches:
-      - master
-      - main
+    branches:    
+      - '*'         # matches every branch that doesn't contain a '/'
+      - '*/*'       # matches every branch containing a single '/'
+      - '**'        # matches every branch
+      - '!master'   # excludes master
+
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '14' ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -16,6 +22,7 @@ jobs:
       - name: Build
         uses: andstor/jsdoc-action@v1
         with:
+          recurse: true
           source_dir: ./src
           output_dir: ./out
           front_page: README.md
@@ -32,9 +39,12 @@ jobs:
             git commit -m "Add changes" -a
             echo "::set-output name=push::true"
           fi
+
         shell: bash
       - name: Push changes
         if: steps.commit.outputs.push == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
