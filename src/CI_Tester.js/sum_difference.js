@@ -17,5 +17,5 @@
  function mult(a, b) {
   return a * b;
 }
-
+alert("HELLO");
 module.exports = sum;
