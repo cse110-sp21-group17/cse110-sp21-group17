@@ -3,6 +3,8 @@ name: Codacy Security Scan
 on:
   push:
     branches: [ "master", "main" ]
+    paths:
+      - src/*
   pull_request:
     branches: [ "master", "main" ]
 
