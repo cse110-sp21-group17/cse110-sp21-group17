@@ -4,7 +4,7 @@
 05/04/2021
 
 ## Status 
-Accepted
+depricated (Frameworks not allowed for this project)
 
 ## Context 
 Our group needed to decide which JavaScript framework we would build our project off of.
