@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>ChimPlanzee</title>
+
+        <meta charset="UTF-8">
+        <meta name="description" content="A quick and simple bullet journaling app.">
+        <meta name="keywords" content="bullet journal, journaling">
+        <meta name="author" content="The Code Monkeys">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="settings.css">
+    </head>
+    <body>
+        <header>
+            <div>
+                <h2 id="exit">X</h2>
+            </div>
+            <h1 id="title">Settings</h1>
+        </header>
+        <main>
+            <div id="settingDisplay">
+                <div id="userInfo" class="setting">
+                    <h2>User Info</h2>
+                    <form class="settingForm">
+                        <p>
+                            <label for ="userName">Account Name:</label>
+                            <input type="text" id="userName" name="userName" class="settingInput">
+                        </p>
+                        <p>
+                            <label for ="changePassword">Change Password:</label>
+                            <input type="password" id="changePassword" class="settingInput">
+                        </p>
+                        
+                    </form>
+                </div>
+                <div id = "Customization" class="setting">
+                    <hr>
+                    <h2>Customization</h2>
+                    <form class="settingForm">
+                        <p>
+                            <label for = "theme">Theme:</label>
+                            <select name="theme" id="themes" class="settingInput">
+                                <option>More to come</option>
+                            </select>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </main>
+        
+
+        <!-- declare scripts here -->
+        <script type="module" src="./scripts/script.js"></script>
+        <script type="module" src="./components/example.js"></script>
+    </body>
+</html>
