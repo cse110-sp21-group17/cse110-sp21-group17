@@ -1,2 +1,3 @@
-# Code Monkeys
-[Team Page](admin/team.md)
+# ChimPlanzee
+
+_A bullet journaling app designed by the **[Code Monkeys](admin/team.md)**_
