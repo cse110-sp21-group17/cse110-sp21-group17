@@ -16,7 +16,7 @@
   color: #f7fff6;
 }
 
-#settingDisplay {
+#setting-display {
   padding-bottom: 2vh;
   padding-top: 0.5vh;
 }
@@ -25,7 +25,7 @@
   color: red;
 }
 
-.settingForm p {
+.setting-form p {
   display: table-row;
 }
 
@@ -34,12 +34,12 @@
   margin-left: 2vw;
 }
 
-.settingForm {
+.setting-form {
   margin-left: 5vw;
   display: table;
 }
 
-.settingInput {
+.setting-input {
   display: table-cell;
   font-size: 18;
   margin-left: 5vw;
