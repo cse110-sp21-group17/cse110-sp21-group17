@@ -1,6 +1,6 @@
 # May 20, 2021 Meeting Retrospective
 
-## 5:50pm-5:50pm, remote on zoom
+## 5:50pm-6:30pm, remote on zoom
 
 ### members who attended
 1. Pablo Gratas
