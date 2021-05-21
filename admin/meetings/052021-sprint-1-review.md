@@ -1,6 +1,6 @@
-# May 18, 2021 Meeting 8
+# May 20, 2021 Meeting Sprint 1
 
-## 6:00pm-7:00pm, remote on zoom
+## 5:20pm-5:50pm, remote on zoom
 
 ### members who attended
 1. Pablo Gratas
