@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: CI_Tester/sum_difference.js</title>
+    <title>JSDoc: Source: data-management/data.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: CI_Tester/sum_difference.js</h1>
+    <h1 class="page-title">Source: data-management/data.js</h1>
 
     
 
@@ -27,27 +27,14 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * 
- * @param {int} a First param to add
- * @param {int} b Second param to add 
- * @returns {int} The sum
+ * @summary removes a key
+ * @param {string} key key of item to remove
  */
- function sum(a, b) {
-    return a + b;
-  }
-  
-/**
- * 
- * @param {int} a First param to multiply
- * @param {int} b Second param to multiply 
- * @returns {int} The product
- */
- function mult(a, b) {
-  return a * b;
+function remove(key){
+    localStorage.removeItem(key);
 }
-//Want to test codacy
-module.exports = sum;
-</code></pre>
+
+module.exports = {remove};</code></pre>
         </article>
     </section>
 
