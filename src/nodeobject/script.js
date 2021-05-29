@@ -50,20 +50,25 @@ function createTask(content, date, time, goal, priority) {
     //Checks if the date index exists, and inserts the task into the date index in localStorage
     let dateIndex = localStorage.getItem(`${date}`);
     if(dateIndex == null){
-        localStorage.setItem(`${date}`, JSON.stringify([key]))
+        let keyArray = [`${key}`];
+        localStorage.setItem(`${date}`, JSON.stringify(keyArray));
     } else {
-        newIndex = JSON.parse(dateIndex).push(key);
+        let newIndex = JSON.parse(dateIndex);
+        newIndex.push(key.toString());
         localStorage.setItem(`${date}`, JSON.stringify(newIndex));
     }
     //Inserts the task into the goal index in localStorage
-    newIndex = JSON.parse(localStorage.getItem(`${goal}`)).push(key);
-    localStorage.setItem(`${goal}`, newIndex);
+    newIndex = JSON.parse(localStorage.getItem(`${goal}`));
+    newIndex.push(key.toString());
+    localStorage.setItem(`${goal}`, JSON.stringify(newIndex));
     //Checks if the priority index exists, and inserts the task into the priority index in localStorage
     priorityIndex = localStorage.getItem(`${priority}`);
     if(priorityIndex == null){
-        localStorage.setItem(`${priority}`, JSON.stringify([key]))
+        let keyArray = [`${key}`];
+        localStorage.setItem(`${priority}`, JSON.stringify(keyArray))
     } else {
-        newIndex = JSON.parse(priorityIndex).push(key);
+        let newIndex = JSON.parse(priorityIndex);
+        newIndex.push(key);
         localStorage.setItem(`${priority}`, JSON.stringify(newIndex));
     }
     //Returns the noteJSON to easily pass into the HTML element rendering function
@@ -179,7 +184,7 @@ function editGoal(key, name) {
 }
 
 
-module.exports = { createNote: createNote, createTask: createTask}
+module.exports = { createNote: createNote, createTask: createTask, createGoal:createGoal}
 //function deleteTask()
 
 //function deleteNote()
