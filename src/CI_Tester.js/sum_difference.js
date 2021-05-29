@@ -17,6 +17,5 @@
  function mult(a, b) {
   return a * b;
 }
-//Want to test codacy
-alert("HELLO");
+
 module.exports = sum;
