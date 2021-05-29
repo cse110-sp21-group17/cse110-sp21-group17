@@ -16,9 +16,11 @@ function createNote(content, date) {
     //Checks if the date index exists, and inserts the note into the date index in localStorage
     let dateIndex = localStorage.getItem(`${date}`);
     if(dateIndex == null){
-        localStorage.setItem(`${date}`, JSON.stringify([key]))
+        let keyArray = [`${key}`];
+        localStorage.setItem(`${date}`, JSON.stringify(keyArray));
     } else {
-        newIndex = JSON.parse(dateIndex).push(key);
+        let newIndex = JSON.parse(dateIndex);
+        newIndex.push(key.toString());
         localStorage.setItem(`${date}`, JSON.stringify(newIndex));
     }
     //Returns the noteJSON to easily pass into the HTML element rendering function
@@ -176,6 +178,8 @@ function editGoal(key, name) {
     }
 }
 
+
+module.exports = { createNote: createNote, createTask: createTask}
 //function deleteTask()
 
 //function deleteNote()
