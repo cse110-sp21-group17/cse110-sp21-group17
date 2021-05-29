@@ -1,4 +1,4 @@
-function createNote(content, date) {
+function createNote(key, content, date) {
     //Used later for clarity
     let newIndex;
     //Creates our empty object
@@ -16,18 +16,16 @@ function createNote(content, date) {
     //Checks if the date index exists, and inserts the note into the date index in localStorage
     let dateIndex = localStorage.getItem(`${date}`);
     if(dateIndex == null){
-        let keyArray = [`${key}`];
-        localStorage.setItem(`${date}`, JSON.stringify(keyArray));
+        localStorage.setItem(`${date}`, JSON.stringify([key]))
     } else {
-        let newIndex = JSON.parse(dateIndex);
-        newIndex.push(key.toString());
+        newIndex = JSON.parse(dateIndex).push(key);
         localStorage.setItem(`${date}`, JSON.stringify(newIndex));
     }
     //Returns the noteJSON to easily pass into the HTML element rendering function
     return noteJSON;
 }
 
-function createTask(content, date, time, goal, priority) {
+function createTask(key, content, date, time, goal, priority) {
     //Used later for clarity
     let newIndex;
     //Creates our empty object
@@ -50,25 +48,20 @@ function createTask(content, date, time, goal, priority) {
     //Checks if the date index exists, and inserts the task into the date index in localStorage
     let dateIndex = localStorage.getItem(`${date}`);
     if(dateIndex == null){
-        let keyArray = [`${key}`];
-        localStorage.setItem(`${date}`, JSON.stringify(keyArray));
+        localStorage.setItem(`${date}`, JSON.stringify([key]))
     } else {
-        let newIndex = JSON.parse(dateIndex);
-        newIndex.push(key.toString());
+        newIndex = JSON.parse(dateIndex).push(key);
         localStorage.setItem(`${date}`, JSON.stringify(newIndex));
     }
     //Inserts the task into the goal index in localStorage
-    newIndex = JSON.parse(localStorage.getItem(`${goal}`));
-    newIndex.push(key.toString());
-    localStorage.setItem(`${goal}`, JSON.stringify(newIndex));
+    newIndex = JSON.parse(localStorage.getItem(`${goal}`)).push(key);
+    localStorage.setItem(`${goal}`, newIndex);
     //Checks if the priority index exists, and inserts the task into the priority index in localStorage
     priorityIndex = localStorage.getItem(`${priority}`);
     if(priorityIndex == null){
-        let keyArray = [`${key}`];
-        localStorage.setItem(`${priority}`, JSON.stringify(keyArray))
+        localStorage.setItem(`${priority}`, JSON.stringify([key]))
     } else {
-        let newIndex = JSON.parse(priorityIndex);
-        newIndex.push(key);
+        newIndex = JSON.parse(priorityIndex).push(key);
         localStorage.setItem(`${priority}`, JSON.stringify(newIndex));
     }
     //Returns the noteJSON to easily pass into the HTML element rendering function
@@ -183,8 +176,40 @@ function editGoal(key, name) {
     }
 }
 
+function deleteNote(key) {
+    let noteJSON = JSON.parse(localStorage.getItem(key));
+    //Delete the note in the date index
+    let oldIndex = JSON.parse(localStorage.getItem(`${noteJSON.dte}`));
+    oldIndex.splice(oldIndex.indexOf(key), 1);
+    localStorage.setItem(`${noteJSON.dte}`, JSON.stringify(oldIndex));
+    //Delete the note itself
+    localStorage.removeItem(key);
+}
 
-module.exports = { createNote: createNote, createTask: createTask, createGoal:createGoal}
-//function deleteTask()
+function deleteTask(key) {
+    let taskJSON = JSON.parse(localStorage.getItem(key));
+    //Delete the listing in the old date index
+    let oldIndex = JSON.parse(localStorage.getItem(`${taskJSON.dte}`));
+    oldIndex.splice(oldIndex.indexOf(key), 1);
+    localStorage.setItem(`${taskJSON.dte}`, JSON.stringify(oldIndex));
+    //Delete the listing in the old goal index
+    oldIndex = JSON.parse(localStorage.getItem(`${taskJSON.gol}`));
+    oldIndex.splice(oldIndex.indexOf(key), 1);
+    localStorage.setItem(`${taskJSON.gol}`, JSON.stringify(oldIndex));
+    //Delete the listing in the old priority index
+    oldIndex = JSON.parse(localStorage.getItem(`${taskJSON.prt}`));
+    oldIndex.splice(oldIndex.indexOf(key), 1);
+    localStorage.setItem(`${taskJSON.prt}`, JSON.stringify(oldIndex));
+    //Delete the task itself
+    localStorage.removeItem(key);
+}
 
-//function deleteNote()
+function deleteGoal(key) {
+    //Remove all the tasks associated with this goal
+    let goalJSON = JSON.parse(localStorage.getItem(key));
+    for(let i = 0; i < goalJSON.length; i++){
+        deleteTask(goalJSON[i]);
+    }
+    //Remove the goal index itself.
+    localStorage.removeItem(key);
+}
