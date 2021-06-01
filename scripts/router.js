@@ -22,12 +22,26 @@ export function gotoPage(state) {
 
     } else if (state.includes("mainPage")) {
 
-
         let mainPage = document.createElement("main-page");
         body.innerHTML = '';
         document.querySelector('body').appendChild(mainPage);
         body.className = "main-page";
         mainPage.calender = "";
+
+        // fetch user's task/goal list~~~~~~
+        fetch('https://cse110lab6.herokuapp.com/entries')
+        .then(response => response.json())
+        .then(entries => {
+          entries.forEach((node, id) => {
+            let newPost = document.createElement('record-node');
+            newPost.node = node;
+            document.querySelector("main-page").shadowRoot.querySelector('.record_view').appendChild(newPost);
+            
+            // newPost.onclick = e => {
+            //   setState("entry" + id);
+            // }
+          });
+        });
 
     } else {
         body.className = state;

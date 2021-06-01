@@ -15,4 +15,18 @@ window.addEventListener('popstate', (e) => {
   window.addEventListener('load', function () {
       // if user already login in
     router.setState("mainPage");
+
+    fetch('https://cse110lab6.herokuapp.com/entries')
+    .then(response => response.json())
+    .then(entries => {
+      entries.forEach((entry, id) => {
+        let newPost = document.createElement('record-node');
+
+        newPost.entry = entry;
+        document.getElementsByClassName('record_view"').appendChild(newPost);
+        // newPost.onclick = e => {
+        //   setState("entry" + id);
+        // }
+      });
+    });
   })

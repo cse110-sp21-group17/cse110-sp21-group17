@@ -25,7 +25,14 @@ class MainPage extends HTMLElement {
             float: left;
             width: 50%;
             height: 100%;
-            background-color: antiquewhite;
+            max-height: 100%;
+            overflow:scroll;
+            border-top-left-radius: 25px;
+        }
+        .main-page  .record_view .record_label{
+            font-size:16px;
+            color:gray;
+            margin-left:5px;
         }
         
         .main-page  .right_view {
@@ -36,11 +43,10 @@ class MainPage extends HTMLElement {
             border-color: black;
             border-width: 3px;
             float: right;
+            border-top-right-radius: 25px;
         }
         
         .right_view .month_container {
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
             align-self: top center;
             background-color: rgb(157, 201, 160);
             min-height: 60%;
@@ -61,8 +67,8 @@ class MainPage extends HTMLElement {
         .right_view .plan_view {
             margin-top: 0%;
             width: 100%;
-            background-color: aqua;
-            min-height: 40%;
+            background-color: antiquewhite;
+            min-height: 37%;
         }
         
         .right_view .month_container .btn {
@@ -84,7 +90,7 @@ class MainPage extends HTMLElement {
             color: rgb(48, 47, 47);
         }
         .right_view .month_container .Week_btn {
-            width: 60%;
+            width: 55%;
             text-align: right;
             margin-top: 3%;
             font-size: 0.9rem;
@@ -93,13 +99,13 @@ class MainPage extends HTMLElement {
         
         .right_view .month_container .Month_btn {
             text-align: right;
-            width: 10%;
-            margin-right: 0.2rem;
+            width: 15%;
+            margin-right: 20px;
             margin-top: 3%;
             color: green;
             font-size: 0.9rem;
             float: right;
-            margin-right: 0.8rem;
+            margin-right: 10px;
         }
         
         .right_view .month_container .day_label {
@@ -179,7 +185,9 @@ class MainPage extends HTMLElement {
         </style>
         <div class="page-title">ChimPlanzee</div>
         <div class="main-page">
-            <div class="record_view"> </div>
+            <div class="record_view"> 
+                <p class="record_label">RECORD</p>
+            </div>
             <div class="sep"></div>
             <div class="right_view">
                 <div class="month_container">
@@ -207,8 +215,16 @@ class MainPage extends HTMLElement {
     }
 
     set page(entry) { // page object includes users nodes, goals, tasks to fill the view
-
-
+        this.shadowRoot.querySelector('.entry-title').innerText = entry.title;
+        this.shadowRoot.querySelector('.entry-date').innerText = entry.date;
+        this.shadowRoot.querySelector('.entry-content').innerText = entry.content;
+        if (entry.image) {
+            let entryImage = document.createElement('img');
+            entryImage.classList.add('entry-image');
+            entryImage.src = entry.image.src;
+            entryImage.alt = entry.image.alt;
+            this.shadowRoot.querySelector('.entry').appendChild(entryImage);
+        }
     }
 
     set calender(cal) {
