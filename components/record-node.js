@@ -123,6 +123,7 @@ class RecordNode extends HTMLElement {
       return property;
     }
   
+    // Just like the entry-page  Update the node by the node-list ----- on router.js file's  "gotoPage" function state "mainPage"
     set node(node) {
       this.shadowRoot.querySelector('.node-title').innerText = node.title;
       this.shadowRoot.querySelector('.node-date').innerText = node.date;
