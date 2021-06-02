@@ -440,7 +440,6 @@ class CreatePage extends HTMLElement {
               setState("mainPage")           
           } else {
 
-
             if (title_label.value.length ==0) {
               hint_label.style.height = "20px";
               hint_label.innerHTML = "* Task Title can not be empty";

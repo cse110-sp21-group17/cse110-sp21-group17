@@ -293,6 +293,8 @@ class MainPage extends HTMLElement {
 
     }
 
+
+   // Just like the entry-page  Update the days's tasks ----- on router.js file's  "gotoPage" function state "mainPage"
     set calender(cal) {
         calendar.init({
             disablePastDays: true,
