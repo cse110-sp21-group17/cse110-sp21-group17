@@ -24,7 +24,8 @@ export function gotoPage(state) {
         body.className = state;
 
     } else if (state.includes("createPage")) {
-        console.log("=====click navigate====" + state);
+        // navigate to create page 
+
         let createPage = document.createElement("create-page");
         body.innerHTML = '';
         document.querySelector('body').appendChild(createPage);
@@ -41,9 +42,12 @@ export function gotoPage(state) {
         body.innerHTML = '';
         document.querySelector('body').appendChild(mainPage);
         body.className = "main-page";
+
+        // user's goal list to create plan view to update the right TOP month view of the Main page
         mainPage.calender = "";
         
-        // fetch user's task/goal list~~~~~~
+
+        // fetch user's task/goal list to update the Left view of the Main page
         fetch('https://cse110lab6.herokuapp.com/entries')
         .then(response => response.json())
         .then(entries => {
@@ -57,8 +61,8 @@ export function gotoPage(state) {
             // }
           });
 
-          // user's goal list to create plan view
-          var goals = [];
+          // user's goal list to create plan view to update the right bottom view of the Main page
+          var goals = []; // fake datas;
           goals.push({
             name:   "Goal 1",
             content: "6/14 done, 2 due this week"
@@ -87,6 +91,8 @@ export function gotoPage(state) {
             name:   "Goal 6",
             content: "6/24 done, 3 due this week"
           });
+
+
           for (var i = 0; i < goals.length; i++) {
             let newPlan = document.createElement('plan-node');
             console.log("new plan " + goals[i].name);

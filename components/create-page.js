@@ -91,8 +91,8 @@ class CreatePage extends HTMLElement {
       return property;
     }
   
+       // on router.js file's  "gotoPage" function state "createPage"
     set page(info) {
-      console.log("fjsdlkafjlkfajdsklfjaslkf");
       var goal_button = this.shadowRoot.querySelector(".choose-goal");
       var task_button = this.shadowRoot.querySelector(".choose-task");
       var note_button = this.shadowRoot.querySelector(".choose-node");
@@ -131,8 +131,6 @@ class CreatePage extends HTMLElement {
     set date(chooseDate) {
         // choose from the calendar
         console.log("=====Create date====" +  chooseDate);
-
-
     }
   
   }
