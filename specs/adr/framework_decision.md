@@ -1,18 +1,39 @@
 # Decision for which JS Framework to use
 
-## Date
-05/04/2021
+* Status: depricated (Frameworks not allowed for this project)
+* Deciders: Everyone
+* Date: 2021-04-05
 
-## Status 
-depricated (Frameworks not allowed for this project)
+## Context and Problem Statement
 
-## Context 
 Our group needed to decide which JavaScript framework we would build our project off of.
 
-## Decision
-Using ReactJS to build project.
+## Considered Options
 
-## Consequences
-- Everyone on the team must take some time to learn ReactJS as no one has prior experience.
-- Many consider JSX, the syntax extension React uses, as a disadvantage because it combines HTML with JavaScript.
-- ReactJS is known for not having good documentation.
+* ReactJS
+* JSX
+
+## Decision Outcome
+
+Chosen option: ReactJS
+
+### Positive Consequences <!-- optional -->
+
+* simple to use framework
+* Everyone is interested in learning how to use ReactJS
+
+### Negative Consequences <!-- optional -->
+
+* Everyone on the team must take some time to learn ReactJS as no one has prior experience.
+* Many consider JSX, the syntax extension React uses, as a disadvantage because it combines HTML with JavaScript.
+* ReactJS is known for not having good documentation.
+
+## Pros and Cons of the Options <!-- optional -->
+
+### ReactJS
+
+* Bad, because ReactJS is known for not having good documentation.
+
+### JSX
+
+* Bad, because Many consider JSX as a disadvantage because it combines HTML with JavaScript.

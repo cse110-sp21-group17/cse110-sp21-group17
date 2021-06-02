@@ -1,0 +1,39 @@
+# June 1, 2021 Meeting 13
+
+## 6:00pm-6:20pm, remote on zoom
+
+### members who attended
+1. Pablo G
+2. Jason S
+3. Juan D
+4. Alec S
+5. Steven R
+6. Jason S
+7. Andrew M
+8. Enzo H
+9. Amanda Q
+
+### Stand ups
+Pablo - Other school work could help out backend/frontend
+
+Jason - Alec Amanda updated script to store objects, helped Alec with GitHub issues
+
+Amanda - What Jason did, busy with other classes
+
+Alec - What Jason did, got service worker working so website works offline, needs someone frontend to know its enabled. Looked into storage situation. Few ADRs 
+
+Jenny - Implemented main page, working on create notes, goals, task feature. Asked about backend structure with Pablo. 
+
+Andrew - Started setting up structure for page routing. 
+
+David - Finishing up labs for other classes, going to work on polishing website parts
+
+Steven - Basically done with 'goal' web component 
+
+Enzo - Needs to catch up on discussion to help with adr
+
+
+### Timeline of Meeting
+1. Standups
+2. Jenny showing what shes done to make sure there is no duplicated work
+3. Alec showing what he has done to bring frontend up to date 
