@@ -3,7 +3,7 @@ export class Task {
         this.date = date;
         this.content = content;
         this.time = time;
-        this.goal = Goal[];
+        this.goal = goal;
         this.priority = priority;
         this.subTasks = subTasks;
         this.isComplete = isComplete; 
