@@ -1,5 +1,6 @@
-//make sure service workers are supported.
+import { router, gotoPage } from './router.js'; // Router imported so you can use it to manipulate your SPA app here
 
+//make sure service workers are supported.
 if ('serviceWorker' in navigator) {
     // console.log('service worker supported')
     window.addEventListener('load', () => {
@@ -11,3 +12,20 @@ if ('serviceWorker' in navigator) {
 }
 
 // router
+const setState = router.setState;
+
+window.addEventListener('popstate', (e) => {
+    if (e.state == null) {
+        setState("");
+    } else {
+        let state = e.state.page
+        gotoPage(state)
+    }
+});
+
+window.addEventListener('load', function () {
+    // if user already login in
+    // router.setState("createPage");
+
+
+})
