@@ -1,4 +1,6 @@
 import { calendar } from './calendar.js';
+import { router } from '../scripts/router.js'; // Router imported so you can use it to manipulate your SPA app here
+const setState = router.setState;
 
 class MainPage extends HTMLElement {
     constructor() {
@@ -13,8 +15,16 @@ class MainPage extends HTMLElement {
             background-color: rgb(202, 235, 204);
         }
 
+        .main-setting {
+            margin-top:10px;
+            height: 30px;
+            width:30px;
+            margin-left:30px;
+            z-index: 100;
+        }
+
         .page-title {
-            margin-top:3px;
+            margin-top:-18px;
             height: 5vh;
             text-align: center;
             font-size: 1.4rem;
@@ -29,6 +39,7 @@ class MainPage extends HTMLElement {
             overflow:scroll;
             border-top-left-radius: 25px;
         }
+
         .main-page  .record_view .record_label{
             font-size:16px;
             color:gray;
@@ -62,13 +73,6 @@ class MainPage extends HTMLElement {
             background-color: gray;
             height: 2px;
             z-index:100;
-        }
-
-        .right_view .plan_view {
-            margin-top: 0%;
-            width: 100%;
-            background-color: antiquewhite;
-            min-height: 37%;
         }
         
         .right_view .month_container .btn {
@@ -182,7 +186,60 @@ class MainPage extends HTMLElement {
         .right_view .month_container .week_body .calender-date--disabled {
             border-radius: 0;
         }
+
+        .right_view .plan_view {
+            margin-top: 0%;
+            width: 100%;
+            background-color: antiquewhite;
+            height: 37%;
+            overflow: scroll;
+        }
+
+        .right_view .plan_view .plan_label {
+            width: 20%;
+            text-align: left;
+            font-size: 1.0rem;
+            margin-left: 3%;
+            margin-top: 2%;
+            color: rgb(48, 47, 47);
+        }
+
+
+        .right_view .plan_view .plan_create {
+            margin-top: 0%;
+            width: 60%;
+            margin-top: 2%;
+            margin-bottom:20px;
+            margin-left:10%;
+            position: relative;
+            display: inline-block;
+            border: 1.5px solid gray;
+            border-radius: 15px;
+            height:40px;
+        }
+
+        .right_view .plan_view .plan_create .plan_create_img {
+            margin-top: 5px;
+            margin-left:10px;
+            width: 30px;
+            height:30px;
+        }
+
+        .right_view .plan_view .plan_create  .create_label{
+            position: absolute;
+            z-index: 999;
+            margin-left:20px;
+            margin-top:10px;
+            font-size:16px;
+            left: 0;
+            right: 0;
+            top: 0%; 
+            text-align: center;
+            width: 60%; 
+        }
+
         </style>
+        <img class="main-setting" src="./src/images/setting.png"></img>
         <div class="page-title">ChimPlanzee</div>
         <div class="main-page">
             <div class="record_view"> 
@@ -201,7 +258,13 @@ class MainPage extends HTMLElement {
                     <div class="week_view"></div>
                     <div class="week_body" data-calendar-area="month"></div>
                 </div>
-                <div class = "plan_view"></div>
+                <div class = "plan_view">
+                    <p class="plan_label">PLAN</p>
+                    <div class="plan_create">
+                        <img class="plan_create_img" src="./src/images/create.png"> </img>
+                        <p class="create_label">Create task or goals here</p>
+                    </div>
+                </div>
             </div>
         </div>
         `;
@@ -225,6 +288,9 @@ class MainPage extends HTMLElement {
             entryImage.alt = entry.image.alt;
             this.shadowRoot.querySelector('.entry').appendChild(entryImage);
         }
+
+      
+
     }
 
     set calender(cal) {
@@ -236,6 +302,19 @@ class MainPage extends HTMLElement {
             },
             root: this.shadowRoot
         });
+
+        this.shadowRoot.querySelector('.main-setting').addEventListener('click', function () {
+            console.log("click setting");
+            alert("click setting button" );
+
+        })
+
+
+        this.shadowRoot.querySelector('.plan_create').addEventListener('click', function () {
+            console.log("click create");
+            setState("createPage");
+        })
+    
     }
 }
 

@@ -9,24 +9,12 @@ window.addEventListener('popstate', (e) => {
     } else {
         let state = e.state.page
         gotoPage(state)
-    }
+    } 
   });
 
   window.addEventListener('load', function () {
       // if user already login in
-    router.setState("mainPage");
+   // router.setState("createPage");
 
-    fetch('https://cse110lab6.herokuapp.com/entries')
-    .then(response => response.json())
-    .then(entries => {
-      entries.forEach((entry, id) => {
-        let newPost = document.createElement('record-node');
-
-        newPost.entry = entry;
-        document.getElementsByClassName('record_view"').appendChild(newPost);
-        // newPost.onclick = e => {
-        //   setState("entry" + id);
-        // }
-      });
-    });
+   
   })

@@ -12,6 +12,8 @@
 
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
+import { router } from '../scripts/router.js'; // Router imported so you can use it to manipulate your SPA app here
+const setState = router.setState;
 
 export var calendar = {
     month: null,
@@ -139,6 +141,9 @@ export var calendar = {
         this.activeDates[i].addEventListener('click', function (event) {
           console.log("tap one active date " + this.dataset.calendarDate)
           alert("Create new note on " + this.dataset.calendarDate);
+
+          setState("createPage" + this.dataset.calendarDate.toString());
+
           _this.removeActiveClass()
           this.classList.add('calender-date--selected')
         })

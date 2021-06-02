@@ -124,10 +124,9 @@ class RecordNode extends HTMLElement {
     }
   
     set node(node) {
-      console.log(node.content)
       this.shadowRoot.querySelector('.node-title').innerText = node.title;
       this.shadowRoot.querySelector('.node-date').innerText = node.date;
-      this.shadowRoot.querySelector('.node-content').innerText = "this is a node" + node.content;
+      this.shadowRoot.querySelector('.node-content').innerText = "this is a node --- " + node.content;
 
       this.shadowRoot.querySelector('.subnode-title').innerText = "this is a sub node ----- " + node.title;
       this.shadowRoot.querySelector('.task-title').innerText = "this is a task node -----" + node.title;
