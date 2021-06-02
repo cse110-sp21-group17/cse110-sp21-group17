@@ -1,6 +1,6 @@
 # indexedDB vs. window.localStorage
 
-* Status: Accepted
+* Status: Depricated
 * Deciders: Amanda, Pablo, Jason
 * Date: 2021-05-16
 
