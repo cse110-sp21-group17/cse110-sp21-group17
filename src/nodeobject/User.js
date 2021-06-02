@@ -4,7 +4,7 @@ export class User {
         this.email = email;
         this.passwd = passwd;
     }
-
+}
     // user
     // name
     // passwd
