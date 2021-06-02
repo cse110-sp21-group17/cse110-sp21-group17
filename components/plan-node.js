@@ -57,6 +57,7 @@ class PlanNode extends HTMLElement {
       return property;
     }
   
+        // Just like the entry-page  Update the Goals by the Goal-list ----- on router.js file's  "gotoPage" function state "mainPage"
     set goal(goal) {
       var randomColor = Math.floor(Math.random()*16777215).toString(16);
       this.shadowRoot.querySelector('.plan').style.backgroundColor = randomColor;
