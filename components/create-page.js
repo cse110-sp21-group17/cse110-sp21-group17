@@ -23,8 +23,6 @@ class CreatePage extends HTMLElement {
             font-size: 1.4rem;
             color: black;
             z-index:-1;
-            position:fixed;
-            top:0;
         }
         
         .choose-area {
@@ -239,6 +237,16 @@ class CreatePage extends HTMLElement {
         margin-left:2%;
       }
 
+      .image-input {
+        margin-left:10%;
+      }
+
+      .image-upload {
+        margin-left:10%;
+        height:100px;
+        max-height:120px;
+      }
+
       .note-area {
         margin-top:5px;
         margin-left: 5%;
@@ -341,10 +349,11 @@ class CreatePage extends HTMLElement {
          <h4 class="note-title">Add note here:
           <textarea class="note-area" placeholer="add your note"> </textarea>
          </h4>
+         <input type="file" class="image-input" value="upload">
+         <br><img class="image-upload" src="#">
 
          <div class="hint-label"></div>
          <button class="submit-button"> Submit</button>
-
         </div>
           `;
   
@@ -382,12 +391,28 @@ class CreatePage extends HTMLElement {
       this.addGoalOptions(goadlOptions);
      
       this.setUpSubmitButton();
-   
+      this.setUpUpload();
   
   
       //tap submit button
     }
+    // handle image upload 
+    setUpUpload(){
+      var image_input = this.shadowRoot.querySelector(".image-input");
+      var imgae_upload = this.shadowRoot.querySelector(".image-upload");
+      image_input.addEventListener('change', function (e) {
+        const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+        const  fileType = e.target.files[0]['type'];
+        if (e.target.files[0] && validImageTypes.includes(fileType)) {
+          imgae_upload.src = URL.createObjectURL(e.target.files[0]); 
+        } else {
+          imgae_upload.src = "";
+          image_input.value="";
+        }
+      })
+    }
 
+    // set up submit Button
     setUpSubmitButton() {
       var submit_button = this.shadowRoot.querySelector(".submit-button");
       var goal_view =  this.shadowRoot.querySelector(".goal-view");
