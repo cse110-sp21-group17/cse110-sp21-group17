@@ -5,4 +5,20 @@ export class Note {
       this.subcontent = subcontent;
     }
 }
-  
+
+// store(object)
+
+// user
+// passwd
+// name
+// 
+
+
+// fetch(name_obj)
+
+// 
+// goal
+// note
+// task
+  // 
+// user
