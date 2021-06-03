@@ -63,7 +63,7 @@ class PlanNode extends HTMLElement {
       this.shadowRoot.querySelector('.plan').style.backgroundColor = randomColor;
 
       this.shadowRoot.querySelector('.plan-label').innerText = goal.name;
-      this.shadowRoot.querySelector('.plan-content').innerText = "this is a node" + goal.content;
+      this.shadowRoot.querySelector('.plan-content').innerText =  goal.date + " " + goal.note;
 
     }
   

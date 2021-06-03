@@ -1,4 +1,5 @@
 // <plan-Node> custom web component
+import { FBService } from '../scripts/FBService.js';
 import { router } from '../scripts/router.js'; // Router imported so you can use it to manipulate your SPA app here
 const setState = router.setState;
 
@@ -371,8 +372,8 @@ class CreatePage extends HTMLElement {
     }
   
        // on router.js file's  "gotoPage" function state "createPage"
-    set page(info) {
-      this.initialButtons();
+    set page(goals) {
+      this.initialButtons(goals);
 
     }
 
@@ -382,12 +383,11 @@ class CreatePage extends HTMLElement {
         console.log("=====Create date====" +  chooseDate);
     }
 
-    initialButtons() {
+    initialButtons(goadlOptions) {
       this.setupTaskAndGoalButton()
 
       this.setupAddTaskButton();
 
-      var goadlOptions = ["Family Goal", "Fitness Goal", "Study Goal"]
       this.addGoalOptions(goadlOptions);
      
       this.setUpSubmitButton();
@@ -425,6 +425,9 @@ class CreatePage extends HTMLElement {
       hint_label.style.height = "0px";
       var _this = this
 
+      let service = FBService.getInstance()
+
+
       submit_button.addEventListener('click', function () {
          if (task_view.hidden == true) { // current in the create goal view
           console.log("Goal name:" + title_label.value + ", goal date:" + select_date.value )
@@ -448,21 +451,38 @@ class CreatePage extends HTMLElement {
           }
 
             var task_views = _this.shadowRoot.querySelectorAll(".add-task-view")
+            var tasks = []
             for (var i = 0; i < task_views.length; i++) {
               var task_title = task_views[i].querySelector(".title-input")  // task-title
               var task_date = task_views[i].querySelector(".choose-date-task")//task-date
               if (task_title.value.length > 0 && task_date.value.length > 0) {
                   // add task to this goal to submit
-                  console.log("Task name: " + task_title.value + " task date: " + task_date.value)
+                 console.log("Task name: " + task_title.value + " task date: " + task_date.value)
+                 let taskObj = {
+                  name: task_title.value,
+                  date: task_date.value
+                };
+
+                 tasks.push(taskObj)
+
               }
             }
 
             var node_text = _this.shadowRoot.querySelector(".note-area");
             console.log("node for this goal and tasks are " + node_text.value);
+             
 
-            //fetch create a new goal api
-            // after success navigate to mainpage
-              setState("mainPage")           
+            //fetch create a new goal api       
+              
+              let goalName = title_label.value;
+              let goalDate = select_date.value;
+              var image_input = _this.shadowRoot.querySelector(".image-input");
+              service.createGoals(goalName, goalDate, tasks,node_text.value, image_input.files[0], ()=>{
+                  // after success navigate to mainpage
+                  setState("mainPage") 
+              })
+
+
           } else {
 
             if (title_label.value.length ==0) {
@@ -487,22 +507,41 @@ class CreatePage extends HTMLElement {
             console.log("Task name:" + title_label.value + ", Task date:" + select_date.value )
 
             var subtask_views = _this.shadowRoot.querySelectorAll(".subtask-view")
+            var subTasks = [];
             for (var i = 0; i < subtask_views.length; i++) {
               var task_title = subtask_views[i].querySelector(".title-input")  // task-title
               var task_date = subtask_views[i].querySelector(".choose-date-subtask")//task-date
               if (task_title.value.length > 0 && task_date.value.length > 0) {
                   // add task to this goal to submit
                   console.log("Sub Task name: " + task_title.value + "Sub task date: " + task_date.value)
+                  let subTask = {
+                    name : task_title.value,
+                    date: task_date.value
+                  }
+                  subTasks.push(subTask)
               }
             }
             var options = _this.shadowRoot.querySelector('.choose-goal-list')
-            console.log("Goal options is " + options.value);
+
             var node_text = _this.shadowRoot.querySelector(".note-area");
             console.log("node for this goal and tasks are " + node_text.value);
 
             //fetch create a new task api
             // after success navigate to mainpage
-            setState("mainPage")
+
+
+           // createTasks(taskName, taskDate, subTasks, goalName, taskNote, imgaeFile=null, fn) 
+           let taskName = title_label.value;
+           let taskDate = select_date.value;
+           let goalName = options[options.selectedIndex].innerHTML;
+           let taskNote = node_text.value;
+
+           var image_input = _this.shadowRoot.querySelector(".image-input");
+           service.createTasks(taskName, taskDate, subTasks, goalName, taskNote,image_input.files[0], ()=>{
+               // after success navigate to mainpage
+               setState("mainPage") 
+           })
+
           }
       });
       
@@ -616,7 +655,7 @@ class CreatePage extends HTMLElement {
         for (var i = 0; i<options.length; i++){
             var opt = document.createElement('option');
             opt.value = i+1;
-            opt.innerHTML = options[i];
+            opt.innerHTML = options[i].name;
             select.appendChild(opt);
         }
     }

@@ -119,9 +119,19 @@ export var calendar = {
       }
 
 
-      let key = this.date.toString().substring(0, 15)
+      var month = this.date.getUTCMonth() + 1; //months from 1-12
+      var day = this.date.getUTCDate();
+      var year = this.date.getUTCFullYear();   
+
+      let monthString = month < 10 ? "0" + month : month;
+      let dayString = day < 10 ? "0" + day : day;
+
+      let key = year+"-"+monthString+"-"+dayString;
+      
       if (this.details[key] != undefined) {
-          detailEl.innerHTML = this.details[key];
+          let des = this.details[key].taskName ;
+          if (des.length > 30) des = des.substring(0, 30) + "..."
+          detailEl.innerHTML = des;
       }
   
       

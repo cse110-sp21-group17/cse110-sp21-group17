@@ -35,7 +35,7 @@ class MainPage extends HTMLElement {
             float: left;
             width: 50%;
             height: 100%;
-            max-height: 100%;
+            max-height: 120%;
             overflow:scroll;
             border-top-left-radius: 25px;
         }
@@ -50,6 +50,7 @@ class MainPage extends HTMLElement {
             align-self: top right;
             width: 50%;
             height: 100%;
+            max-height:100%;
             border: 1px;
             border-color: black;
             border-width: 3px;
@@ -60,7 +61,8 @@ class MainPage extends HTMLElement {
         .right_view .month_container {
             align-self: top center;
             background-color: rgb(157, 201, 160);
-            min-height: 60%;
+            min-height: 50%;
+            max-height: 68%;
             max-width: 52rem;
             min-width: 30rem;
             text-align: center;
@@ -124,6 +126,7 @@ class MainPage extends HTMLElement {
             display: flex;
             flex-wrap: wrap;
             flex: 0 0 15.36%;
+            margin-top:1%;
         }
           
         
@@ -163,12 +166,12 @@ class MainPage extends HTMLElement {
             background-color: rgb(231, 169, 133);
             border-radius: 50%;
             margin-top: 0px;
-            height: 30px;
-            width: 30px;
+            height: 35px;
+            width: 35px;
         }
         
         .right_view .month_container .week_body .calender-date--label{
-            margin-top: 3px;
+            margin-top: 4px;
             font-size:  15px;
             margin-bottom: 5px;
         }
@@ -191,7 +194,7 @@ class MainPage extends HTMLElement {
             margin-top: 0%;
             width: 100%;
             background-color: antiquewhite;
-            height: 37%;
+            height: 40%;
             overflow: scroll;
         }
 
@@ -295,13 +298,10 @@ class MainPage extends HTMLElement {
 
 
    // Just like the entry-page  Update the days's tasks ----- on router.js file's  "gotoPage" function state "mainPage"
-    set calender(cal) {
+    set calender(dates) {
         calendar.init({
             disablePastDays: true,
-            details: {
-            "Fri Jun 04 2021" : "Just test detail display layout",  // format of json of details
-            "Thu Jun 24 2021" : "Clean dishes, Do this a longer task 1 guess"  // format of json of details
-            },
+            details: dates,
             root: this.shadowRoot
         });
 
