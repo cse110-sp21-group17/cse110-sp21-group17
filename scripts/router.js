@@ -8,8 +8,6 @@ import { FBService } from './FBService.js';
 
 
 router.setState = function(state) { 
-    console.log("router set State  get ====== "+ state);
-
     
     body.className = state;
     if (state === "") {
@@ -27,11 +25,7 @@ router.setState = function(state) {
 
 export function gotoPage(state) {
 
-    console.log("router goto state ====== "+ state);
-
     let service = FBService.getInstance()
-
-    console.log("router goto state FBService ====== "+ state);
 
     if (state === "") {
         body.className = state;
@@ -50,8 +44,6 @@ export function gotoPage(state) {
         }
 
     } else if (state.includes("mainPage")) {
-
-        console.log("gotopage  get ====== mainpage");
 
         let mainPage = document.createElement("main-page");
         body.innerHTML = '';

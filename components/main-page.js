@@ -306,14 +306,12 @@ class MainPage extends HTMLElement {
         });
 
         this.shadowRoot.querySelector('.main-setting').addEventListener('click', function () {
-            console.log("click setting");
             alert("click setting button" );
 
         })
 
 
         this.shadowRoot.querySelector('.plan_create').addEventListener('click', function () {
-            console.log("click create");
             setState("createPage");
         })
     

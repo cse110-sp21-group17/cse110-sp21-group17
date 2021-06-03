@@ -50,7 +50,6 @@ export var calendar = {
       let monthButton = document.querySelector("main-page").shadowRoot.querySelector('.Month_btn');
       
       weekButton.addEventListener('click', function () {
-        console.log("click weekButton");
         _this.clearCalendar()
         var nextMonth = _this.date.getMonth() + 1
         _this.createWeek()
@@ -59,7 +58,6 @@ export var calendar = {
       })
 
       monthButton.addEventListener('click', function () {
-        console.log("click monthButton");
         _this.clearCalendar()
         var curMonth = _this.date.getMonth()
         _this.createMonth()
@@ -146,7 +144,6 @@ export var calendar = {
 
       for (var i = 0; i < this.activeDates.length; i++) {
         this.activeDates[i].addEventListener('click', function (event) {
-          console.log("tap one active date " + this.dataset.calendarDate)
           alert("Create new note on " + this.dataset.calendarDate);
 
           setState("createPage" + this.dataset.calendarDate.toString());
