@@ -430,7 +430,6 @@ class CreatePage extends HTMLElement {
 
       submit_button.addEventListener('click', function () {
          if (task_view.hidden == true) { // current in the create goal view
-          console.log("Goal name:" + title_label.value + ", goal date:" + select_date.value )
 
           if (title_label.value.length ==0) {
             hint_label.style.height = "20px";
@@ -457,7 +456,6 @@ class CreatePage extends HTMLElement {
               var task_date = task_views[i].querySelector(".choose-date-task")//task-date
               if (task_title.value.length > 0 && task_date.value.length > 0) {
                   // add task to this goal to submit
-                 console.log("Task name: " + task_title.value + " task date: " + task_date.value)
                  let taskObj = {
                   name: task_title.value,
                   date: task_date.value
@@ -469,9 +467,7 @@ class CreatePage extends HTMLElement {
             }
 
             var node_text = _this.shadowRoot.querySelector(".note-area");
-            console.log("node for this goal and tasks are " + node_text.value);
              
-
             //fetch create a new goal api       
               
               let goalName = title_label.value;
@@ -503,9 +499,6 @@ class CreatePage extends HTMLElement {
               hint_label.style.height = "0px";
             }
 
-            
-            console.log("Task name:" + title_label.value + ", Task date:" + select_date.value )
-
             var subtask_views = _this.shadowRoot.querySelectorAll(".subtask-view")
             var subTasks = [];
             for (var i = 0; i < subtask_views.length; i++) {
@@ -513,7 +506,6 @@ class CreatePage extends HTMLElement {
               var task_date = subtask_views[i].querySelector(".choose-date-subtask")//task-date
               if (task_title.value.length > 0 && task_date.value.length > 0) {
                   // add task to this goal to submit
-                  console.log("Sub Task name: " + task_title.value + "Sub task date: " + task_date.value)
                   let subTask = {
                     name : task_title.value,
                     date: task_date.value
@@ -524,7 +516,6 @@ class CreatePage extends HTMLElement {
             var options = _this.shadowRoot.querySelector('.choose-goal-list')
 
             var node_text = _this.shadowRoot.querySelector(".note-area");
-            console.log("node for this goal and tasks are " + node_text.value);
 
             //fetch create a new task api
             // after success navigate to mainpage
@@ -606,7 +597,6 @@ class CreatePage extends HTMLElement {
       
       // create task for goal
       goal_create_button.addEventListener('click', function () {
-        console.log("create task for goal");
         var goal_view = _this.shadowRoot.querySelector(".goal-view");
         var create_task_view =  _this.shadowRoot.querySelector(".add-task-view").cloneNode(true);
         create_task_view.classList.add('add-task-view')
@@ -629,7 +619,6 @@ class CreatePage extends HTMLElement {
 
       // create subtask for goal
       task_create_button .addEventListener('click', function () {
-        console.log("create subtask for task");
         var task_view = _this.shadowRoot.querySelector(".task-view");
         var option_choose = _this.shadowRoot.querySelector(".choose-goal-title");
 

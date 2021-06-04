@@ -13,7 +13,6 @@ nameInput.onchange = e =>  {
 }
 
 nameInput.onclick = e => {
-    console.log('click')
 }
 
 emailInput.onchange = e =>  {

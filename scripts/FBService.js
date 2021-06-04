@@ -34,11 +34,9 @@ export class FBService {
         firebase.database().ref().child(ref)
           .get()
           .then((snapshot) => {
-            console.log("dates are " + snapshot)
             fn(snapshot.val())
           })
           .catch((error) => {
-            console.log('No current user' + error.message)
             errfn(error.message);
           })
     }
@@ -65,9 +63,7 @@ export class FBService {
                 }
                 // save the goal to the server
         
-                this.updateData(goalRef, goalObj, ()=>{
-                    console.log("goals upload success");
-        
+                this.updateData(goalRef, goalObj, ()=>{        
                     for (var i = 0; i < tasks.length; i++) {
                         let date = tasks[i]['date']
                         let name = tasks[i]['name']
@@ -82,9 +78,7 @@ export class FBService {
                         let ref = uid + "/tasks" + "/" + name
                        
                         // save the task to the server
-                        _this.updateData(ref, taskObj, ()=>{
-                            console.log("task upload success");
-        
+                        _this.updateData(ref, taskObj, ()=>{        
                             var dateObj = {
                                 date: date,
                                 taskName: name,
@@ -97,7 +91,6 @@ export class FBService {
                           
                             // save the dates of tasks to the server
                             _this.updateData(dateRef, dateObj, ()=>{
-                                console.log("date upload success");
                                 fn()
                             })   
                         })
@@ -132,8 +125,6 @@ export class FBService {
         
              // save the task to the server
                 _this.updateData(ref, taskObj, ()=>{
-                    console.log("task upload success");
-
                     let dateRef = uid + "/dates" + "/"+ taskDate
         
                     var dateObj = {
@@ -197,7 +188,6 @@ export class FBService {
             fn(userObj)
         })
         .catch((e) => {
-            console.log("------- login fail ----- " + e.message)
             errorfn("error")
         })
     }
