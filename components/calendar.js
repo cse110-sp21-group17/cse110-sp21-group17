@@ -73,9 +73,6 @@ export var calendar = {
       var dateEl = document.createElement('div')
       var detailEl = document.createElement('div')
 
-     if (this.date.toString() === this.todaysDate.toString()) {
-         num = 1;
-     }
       dateEl.innerHTML = num
       dateEl.classList.add('calender-date--label')
       detailEl.classList.add('calender-date--detail')
@@ -178,9 +175,12 @@ export var calendar = {
         let first = curr.getDate() - curr.getDay() + i 
         this.date.setDate(first)
         let day = new Date(curr.setDate(first))
-        if (first == 0) {
+
+        if (day.getMonth() < this.todaysDate.getMonth() ) {
             first += 31;
-        }
+        } 
+        if (first > 31) first -= 31;
+
         this.createDay(
           first,
           day,
