@@ -9,6 +9,10 @@ class MainPage extends HTMLElement {
         const template = document.createElement('template');
         template.innerHTML = `
         <style>
+        
+        *{
+            user-select:none;
+        }
         .main-page {
             width: 100%;
             height: 95vh;
@@ -25,6 +29,7 @@ class MainPage extends HTMLElement {
 
         .page-title {
             margin-top:-18px;
+            user-select:none;
             height: 5vh;
             text-align: center;
             font-size: 1.4rem;
@@ -99,6 +104,7 @@ class MainPage extends HTMLElement {
             margin-top: 3%;
             font-size: 0.9rem;
             float: right;
+            user-select:none;
         }
         
         .right_view .month_container .Month_btn {
@@ -110,6 +116,7 @@ class MainPage extends HTMLElement {
             font-size: 0.9rem;
             float: right;
             margin-right: 10px;
+            user-select:none;
         }
         
         .right_view .month_container .day_label {
@@ -202,18 +209,20 @@ class MainPage extends HTMLElement {
             margin-left: 3%;
             margin-top: 2%;
             color: rgb(48, 47, 47);
+            user-select:none;
         }
 
 
         .right_view .plan_view .plan_create {
             margin-top: 0%;
-            width: 60%;
+            width: 80%;
             margin-top: 2%;
             margin-bottom:20px;
             margin-left:10%;
             position: relative;
             display: inline-block;
-            border: 1.5px solid gray;
+            border: 3.5px solid gray; 
+            border-style: dashed;
             border-radius: 15px;
             height:40px;
         }
@@ -236,6 +245,10 @@ class MainPage extends HTMLElement {
             top: 0%; 
             text-align: center;
             width: 60%; 
+        }
+
+        .right_view .plan_view .plan_create:hover {
+            border-style: solid;
         }
 
         </style>
