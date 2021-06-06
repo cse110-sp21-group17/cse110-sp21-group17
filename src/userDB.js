@@ -1,5 +1,5 @@
 import Dexie from 'dexie';
-import { Entry, Task } from './object_files/objects';
+import { Entry } from './object_files/objects';
 import Note from '/object_files.objects.js';
 import Task from '/object_files.objects.js';
 import Subtask from '/object_files.objects.js';
