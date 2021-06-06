@@ -4,6 +4,7 @@ const emailInput = document.getElementsByClassName("userEmail")[0];
 const passwordInput = document.getElementsByClassName("userPassword")[0];
 const submitButton = document.getElementsByClassName("submit")[0];
 import { router } from './router.js'; // Router imported so you can use it to manipulate your SPA app here
+//import { db } from '../src/userBd.js'
 const setState = router.setState;
 
 //let fields = [nameInput, emailInput, passwordInput];
@@ -45,6 +46,7 @@ submitButton.onclick = e => {
     let email = emailInput.value;
     let password = passwordInput.value;
     // submit to backend --- once success - navigate to main page
+    //openUserDB(name);
 
     setState("mainPage");
 }
