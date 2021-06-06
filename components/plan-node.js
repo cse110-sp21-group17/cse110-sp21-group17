@@ -22,6 +22,7 @@ class PlanNode extends HTMLElement {
               .plan:hover {
                 filter: brightness(80%);
                 background-color: rgb(157, 201, 160);
+                cursor: pointer;
               }
               
               .plan .plan-label {

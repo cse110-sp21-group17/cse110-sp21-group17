@@ -84,30 +84,44 @@ class MainPage extends HTMLElement {
             width: 100%;
             font-size: 1.2rem;
             margin-bottom: 3%;
-            margin-left: 0%;
-            margin-right: 0%;
+            /*margin-left: 3%;*/
+            /*margin-right: 3%;*/
+            margin-top: 0%;
             display: flex;
+            justify-content:space-between;
+        }
+
+        .right_view .month_container .btn .btns {
+            display: flex;
+            justify-content:space-around;
+            margin-top: 2%;
+            padding-right: 6%;
         }
         
         .right_view .month_container .review_label {
+            align-self:auto;
             width: 20%;
             text-align: left;
             font-size: 1.0rem;
             margin-left: 3%;
-            margin-top: 2%;
+            margin-top: 2%; 
             float: left;
             color: rgb(48, 47, 47);
         }
         .right_view .month_container .Week_btn {
+            align-self:auto;
             width: 55%;
             text-align: right;
             margin-top: 3%;
+            paddig-right: 10px;
             font-size: 0.9rem;
             float: right;
             user-select:none;
+            cursor: pointer;
         }
         
         .right_view .month_container .Month_btn {
+            align-self: auto;
             text-align: right;
             width: 15%;
             margin-right: 20px;
@@ -117,6 +131,7 @@ class MainPage extends HTMLElement {
             float: right;
             margin-right: 10px;
             user-select:none;
+            cursor: pointer;
         }
         
         .right_view .month_container .day_label {
@@ -214,6 +229,7 @@ class MainPage extends HTMLElement {
 
 
         .right_view .plan_view .plan_create {
+            cursor: pointer;
             margin-top: 0%;
             width: 80%;
             margin-top: 2%;
@@ -263,8 +279,11 @@ class MainPage extends HTMLElement {
                 <div class="month_container">
                     <div class="btn" >
                          <div class = "review_label">REVIEW</div>
-                        <div class="Week_btn" >WEEK</div>
-                        <div class="Month_btn">MONTH</div>
+                         <div class = "btns">
+                            <div class="Week_btn" >WEEK</div>
+                            <div class="Month_btn">MONTH</div>
+                         </div>
+                        
                     </div>
     
                      <div class="day_label" data-calendar-label="month"></div>
