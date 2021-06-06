@@ -9,6 +9,10 @@ class MainPage extends HTMLElement {
         const template = document.createElement('template');
         template.innerHTML = `
         <style>
+        
+        *{
+            user-select:none;
+        }
         .main-page {
             width: 100%;
             height: 95vh;
@@ -25,6 +29,7 @@ class MainPage extends HTMLElement {
 
         .page-title {
             margin-top:-18px;
+            user-select:none;
             height: 5vh;
             text-align: center;
             font-size: 1.4rem;
@@ -79,29 +84,44 @@ class MainPage extends HTMLElement {
             width: 100%;
             font-size: 1.2rem;
             margin-bottom: 3%;
-            margin-left: 0%;
-            margin-right: 0%;
+            /*margin-left: 3%;*/
+            /*margin-right: 3%;*/
+            margin-top: 0%;
             display: flex;
+            justify-content:space-between;
+        }
+
+        .right_view .month_container .btn .btns {
+            display: flex;
+            justify-content:space-around;
+            margin-top: 2%;
+            padding-right: 6%;
         }
         
         .right_view .month_container .review_label {
+            align-self:auto;
             width: 20%;
             text-align: left;
             font-size: 1.0rem;
             margin-left: 3%;
-            margin-top: 2%;
+            margin-top: 2%; 
             float: left;
             color: rgb(48, 47, 47);
         }
         .right_view .month_container .Week_btn {
+            align-self:auto;
             width: 55%;
             text-align: right;
             margin-top: 3%;
+            paddig-right: 10px;
             font-size: 0.9rem;
             float: right;
+            user-select:none;
+            cursor: pointer;
         }
         
         .right_view .month_container .Month_btn {
+            align-self: auto;
             text-align: right;
             width: 15%;
             margin-right: 20px;
@@ -110,6 +130,8 @@ class MainPage extends HTMLElement {
             font-size: 0.9rem;
             float: right;
             margin-right: 10px;
+            user-select:none;
+            cursor: pointer;
         }
         
         .right_view .month_container .day_label {
@@ -202,18 +224,21 @@ class MainPage extends HTMLElement {
             margin-left: 3%;
             margin-top: 2%;
             color: rgb(48, 47, 47);
+            user-select:none;
         }
 
 
         .right_view .plan_view .plan_create {
+            cursor: pointer;
             margin-top: 0%;
-            width: 60%;
+            width: 80%;
             margin-top: 2%;
             margin-bottom:20px;
             margin-left:10%;
             position: relative;
             display: inline-block;
-            border: 1.5px solid gray;
+            border: 3.5px solid gray; 
+            border-style: dashed;
             border-radius: 15px;
             height:40px;
         }
@@ -238,6 +263,10 @@ class MainPage extends HTMLElement {
             width: 60%; 
         }
 
+        .right_view .plan_view .plan_create:hover {
+            border-style: solid;
+        }
+
         </style>
         <img class="main-setting" src="./src/images/setting.png"></img>
         <div class="page-title">ChimPlanzee</div>
@@ -250,8 +279,11 @@ class MainPage extends HTMLElement {
                 <div class="month_container">
                     <div class="btn" >
                          <div class = "review_label">REVIEW</div>
-                        <div class="Week_btn" >WEEK</div>
-                        <div class="Month_btn">MONTH</div>
+                         <div class = "btns">
+                            <div class="Week_btn" >WEEK</div>
+                            <div class="Month_btn">MONTH</div>
+                         </div>
+                        
                     </div>
     
                      <div class="day_label" data-calendar-label="month"></div>
