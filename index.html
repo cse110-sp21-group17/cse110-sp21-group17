@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>ChimPlanzee</title>
+        <title>Chimplanzee</title>
 
         <meta charset="UTF-8">
         <meta name="description" content="A quick and simple bullet journaling app.">
@@ -8,21 +8,31 @@
         <meta name="author" content="The Code Monkeys">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!-- fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Playfair+Display&display=swap" rel="stylesheet"> 
+
+        <!-- style -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
+
+        <!-- dexie -->
+        <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
     </head>
     <body>
-        <div class="title">ChimPlanzee</div>
+        <div class="title">Chimplanzee</div>
         <div class="landing">
             <div class="bottom-part"></div>
-            <p class="slogan"> An easier way to organize your notes!</p>
-            <img class="logo" src="./admin/branding/code monkeys.png"></img>
+            <p class="slogan">An easier way to organize your notes.</p>
+            <p class="description">Chimplanzee provides an easy, streamlined way to bullet journal from the comfort of your laptop or computer. Nothing is sent over the internet; your data stays local and private for your eyes only.</p>
             <div class="login">
-                <p class="label">Login or SignUp!</p>
-                <input class="userName" placeholder="your name"></input>
-                <input class="userEmail" placeholder="your email"></input>
-                <input type="password" class="userPassword" placeholder="your password"></input>
-                <button class="submit" disabled>Join now!</button>
+                <p class="label">Start now!</p>
+                <p class="label-desc">Enter a username you can remember - you'll access your personal notes with this name when you come back!</p>
+                <input class="form-control userName" type="text" placeholder="Enter your name here..."></input>
+                <button class="submit" disabled>Start now!</button>
             </div>
+            <img class="logo rounded-circle" src="./admin/branding/code monkeys.png"></img>
+            <p class="pseudo-footer">Created by the Code Monkeys, 2021</p>
         </div>
 
 

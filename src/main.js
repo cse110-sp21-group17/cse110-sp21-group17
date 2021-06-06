@@ -14,18 +14,16 @@ if ('serviceWorker' in navigator) {
 // router
 const setState = router.setState;
 
-window.addEventListener('popstate', (e) => {
+window.onpopstate = function(e) {
     if (e.state == null) {
-        setState("");
+        // no-op?
+        // setState("");
     } else {
-        let state = e.state.page
-        gotoPage(state)
+        setState(e.state, true);
     }
-});
+};
 
 window.addEventListener('load', function () {
-
-
     // if user already login in
     // router.setState("createPage");
 })

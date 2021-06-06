@@ -1,12 +1,13 @@
-import Dexie from 'dexie';
-import { Entry } from './object_files/objects';
-import Note from '/object_files.objects.js';
-import Task from '/object_files.objects.js';
-import Subtask from '/object_files.objects.js';
-import Event from '/object_files.objects.js';
-import Goal from '/object_files.objects.js';
+import { Note, Task, Subtask, Event, Goal, Entry } from './object_files/objects.js';
 
 let db; //Global database variable
+
+var groupBy = function(xs, key) {
+    return xs.reduce(function(rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
+    }, {});
+};
 
 /**
  * Opens a database if it exists, creates one if it doesn't 
@@ -34,7 +35,7 @@ export function openUserDB(username){   //This function opens a database. If it 
  * @param {Task|Note|Event|Goal} toStore - Will be the object stored
  * @returns {Entry} - The object that was stored
  */
-export async function createEntry(toStore){ //This function takes a storable object and stores it in the appropriate table
+export async function createEntry(toStore) { //This function takes a storable object and stores it in the appropriate table
     if(toStore instanceof Task){
         let temp = await db.tasks.put(toStore); //Store in DB and get ID
         toStore.id = temp; //Append ID to object
@@ -133,13 +134,71 @@ export function completeTask(toComplete){
  * @param {Date} dateIndex - The date object you want to access 
  * @returns {[[Task], [Subtask], [Note], [Event], [Goal]]}
  */
-export async function getDateEntries(dateIndex){ //Get all of the entries on a given date
+export async function getDateEntries(dateIndex) { //Get all of the entries on a given date
     let taskArr = await db.tasks.where("entryDate").equals(dateIndex).toArray();
     let subtaskArr = taskArr.forEach(curTask => getSubtasks(curTask));
     let noteArr = await db.notes.where("entryDate").equals(dateIndex).toArray();
     let eventArr = await db.events.where("entryDate").equals(dateIndex).toArray();
     let goalArr = await db.goals.where("entryDate").equals(dateIndex).toArray();
+
     return [taskArr, subtaskArr, noteArr, eventArr, goalArr]
+}
+
+function fmtDate(d) {
+    let options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    return d.toLocaleString('en', options);
+}
+
+// get all dated entries?
+export async function getDatedEntries() {
+    var res = {};
+    
+    let taskArr = await db.tasks.toArray();
+    for (var i = 0; i < taskArr.length; i++) {
+        let sts = await getSubtasks(taskArr[i]);
+
+        console.log(taskArr[i]);
+
+        let key = fmtDate(taskArr[i].entryDate_m);
+        if (!(key in res)) {
+            res[key] = []
+        }
+
+        res[key].push({ t: taskArr[i], sts: sts });
+    }
+
+    let noteArr = await db.notes.toArray();
+    let eventArr = await db.events.toArray();
+
+    for (var i = 0; i < noteArr.length; i++) {
+        let key = fmtDate(noteArr[i].entryDate_m);
+        if (!(key in res)) {
+            res[key] = []
+        }
+
+        res[key].push(noteArr[i]);
+    }
+
+    for (var i = 0; i < eventArr.length; i++) {
+        let key = fmtDate(eventArr[i].entryDate_m);
+        if (!(key in res)) {
+            res[key] = []
+        }
+
+        res[key].push(eventArr[i]);
+    }
+
+    return res;
+}
+
+export async function getGoals() {
+    let gs = await db.goals.toArray();
+    let ngs = [];
+    for (var i = 0; i < gs.length; i++) {
+        let ts = await getGoalTasks(gs[i]);
+        ngs.push({ g: gs[i], ts: ts });
+    }
+    return ngs;
 }
 
 /**
@@ -147,8 +206,8 @@ export async function getDateEntries(dateIndex){ //Get all of the entries on a g
  * @param {Goal} goalIndex
  * @returns {[Task]} All the tasks associated with the input goal
  */
-export async function getGoalTasks(goalIndex){ //Get all of the entries (which are only tasks and their subtasks) of a given goal
-    let taskArr = await db.tasks.where("goal").equals(goalIndex.description).toArray();
+export async function getGoalTasks(goal){ //Get all of the entries (which are only tasks and their subtasks) of a given goal
+    let taskArr = await db.tasks.where("goal").equals(goal.description).toArray();
     return taskArr;
 }
 
@@ -175,6 +234,6 @@ export async function addSubtask(taskToEdit, subToAdd){ //Add subtask to a task
  */
 export async function getSubtasks(taskIndex){ //Get all subtasks of a task
     let subtaskArr = [];
-    taskIndex.subtaskIds.forEach(id => await subtaskArr.push(db.subtasks.get(id)));
+    taskIndex.subtaskIds.forEach(async id => await subtaskArr.push(db.subtasks.get(id)));
     return subtaskArr;
 }

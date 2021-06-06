@@ -1,13 +1,15 @@
 // <plan-Node> custom web component
+import { Goal, Task } from "../src/object_files/objects.js";
+import { createEntry } from "../src/userDB.js";
 import { router } from '../scripts/router.js'; // Router imported so you can use it to manipulate your SPA app here
 const setState = router.setState;
 
 class CreatePage extends HTMLElement {
     constructor() {
-      super();
-      const template = document.createElement('template');
+        super();
+        const template = document.createElement('template');
 
-      template.innerHTML = `
+        template.innerHTML = `
           <style>
           .create-page {
             width: 100%;
@@ -244,20 +246,20 @@ class CreatePage extends HTMLElement {
         margin-left: 5%;
         height:20%;
         width:40%;
-	      box-sizing:border-box;
-	      display:block;
-	      max-width:50%;
-	      line-height:1.5;
-	      padding:15px 15px 30px;
-	      border-radius:3px;
-	      border:1px solid #F7E98D;
-	      font:13px;
-	      box-shadow:0 4px 6px rgba(0,0,0,0.1);
-	      background:linear-gradient(#F9EFAF, #F7E98D);
-	      background:-o-linear-gradient(#F9EFAF, #F7E98D);
-	      background:-ms-linear-gradient(#F9EFAF, #F7E98D);
-	      background:-moz-linear-gradient(#F9EFAF, #F7E98D);
-      	background:-webkit-linear-gradient(#F9EFAF, #F7E98D);
+          box-sizing:border-box;
+          display:block;
+          max-width:50%;
+          line-height:1.5;
+          padding:15px 15px 30px;
+          border-radius:3px;
+          border:1px solid #F7E98D;
+          font:13px;
+          box-shadow:0 4px 6px rgba(0,0,0,0.1);
+          background:linear-gradient(#F9EFAF, #F7E98D);
+          background:-o-linear-gradient(#F9EFAF, #F7E98D);
+          background:-ms-linear-gradient(#F9EFAF, #F7E98D);
+          background:-moz-linear-gradient(#F9EFAF, #F7E98D);
+        background:-webkit-linear-gradient(#F9EFAF, #F7E98D);
       }
 
       .hint-label {
@@ -347,23 +349,23 @@ class CreatePage extends HTMLElement {
 
         </div>
           `;
-  
-      this.attachShadow({ mode: 'open' })
-      this.shadowRoot.appendChild(template.content.cloneNode(true))
+        
+        this.attachShadow({ mode: 'open' })
+        this.shadowRoot.appendChild(template.content.cloneNode(true))
     }
-  
+    
     get page() {
-      let nodeObj = {
-        'title': this.shadowRoot.querySelector('.plan-label').innerText,
-        'content': this.shadowRoot.querySelector('.plan-content').innerText,
-      };
-  
-      return property;
+        let nodeObj = {
+            'title': this.shadowRoot.querySelector('.plan-label').innerText,
+            'content': this.shadowRoot.querySelector('.plan-content').innerText,
+        };
+        
+        return property;
     }
-  
-       // on router.js file's  "gotoPage" function state "createPage"
+    
+    // on router.js file's  "gotoPage" function state "createPage"
     set page(info) {
-      this.initialButtons();
+        this.initialButtons();
 
     }
 
@@ -374,215 +376,217 @@ class CreatePage extends HTMLElement {
     }
 
     initialButtons() {
-      this.setupTaskAndGoalButton()
+        this.setupTaskAndGoalButton()
 
-      this.setupAddTaskButton();
+        this.setupAddTaskButton();
 
-      var goadlOptions = ["Family Goal", "Fitness Goal", "Study Goal"]
-      this.addGoalOptions(goadlOptions);
-     
-      this.setUpSubmitButton();
-   
-  
-  
-      //tap submit button
+        var goadlOptions = ["Family Goal", "Fitness Goal", "Study Goal"]
+        this.addGoalOptions(goadlOptions);
+        
+        this.setUpSubmitButton();
+        
+        
+        
+        //tap submit button
     }
 
     setUpSubmitButton() {
-      var submit_button = this.shadowRoot.querySelector(".submit-button");
-      var goal_view =  this.shadowRoot.querySelector(".goal-view");
-      var task_view =  this.shadowRoot.querySelector(".task-view");
+        var submit_button = this.shadowRoot.querySelector(".submit-button");
+        var goal_view =  this.shadowRoot.querySelector(".goal-view");
+        var task_view =  this.shadowRoot.querySelector(".task-view");
 
-      var title_label =  this.shadowRoot.querySelector(".title-input");
-      var select_date  = this.shadowRoot.querySelector(".choose-date");
+        var title_label =  this.shadowRoot.querySelector(".title-input");
+        var select_date  = this.shadowRoot.querySelector(".choose-date");
 
-      var hint_label = this.shadowRoot.querySelector(".hint-label");
-      hint_label.style.height = "0px";
-      var _this = this
+        var hint_label = this.shadowRoot.querySelector(".hint-label");
+        hint_label.style.height = "0px";
+        var _this = this
 
-      submit_button.addEventListener('click', function () {
-         if (task_view.hidden == true) { // current in the create goal view
-          console.log("Goal name:" + title_label.value + ", goal date:" + select_date.value )
+        submit_button.addEventListener('click', function () {
+            if (task_view.hidden == true) { // current in the create goal view
+                console.log("Goal name:" + title_label.value + ", goal date:" + select_date.value )
 
-          if (title_label.value.length ==0) {
-            hint_label.style.height = "20px";
-            hint_label.innerHTML = "* Goal Title can not be empty";
-            return;
-          } else {
-            hint_label.innerHTML = "";
-            hint_label.style.height = "0px";
-          }
+                if (title_label.value.length ==0) {
+                    hint_label.style.height = "20px";
+                    hint_label.innerHTML = "* Goal Title can not be empty";
+                    return;
+                } else {
+                    hint_label.innerHTML = "";
+                    hint_label.style.height = "0px";
+                }
 
-          if (select_date.value.length ==0) {
-            hint_label.style.height = "20px";
-            hint_label.innerHTML = "* Goal Date can not be empty";
-            return;
-          } else {
-            hint_label.innerHTML = "";
-            hint_label.style.height = "0px";
-          }
+                if (select_date.value.length ==0) {
+                    hint_label.style.height = "20px";
+                    hint_label.innerHTML = "* Goal Date can not be empty";
+                    return;
+                } else {
+                    hint_label.innerHTML = "";
+                    hint_label.style.height = "0px";
+                }
 
-            var task_views = _this.shadowRoot.querySelectorAll(".add-task-view")
-            for (var i = 0; i < task_views.length; i++) {
-              var task_title = task_views[i].querySelector(".title-input")  // task-title
-              var task_date = task_views[i].querySelector(".choose-date-task")//task-date
-              if (task_title.value.length > 0 && task_date.value.length > 0) {
-                  // add task to this goal to submit
-                  console.log("Task name: " + task_title.value + " task date: " + task_date.value)
-              }
-            }
+                var task_views = _this.shadowRoot.querySelectorAll(".add-task-view")
+                for (var i = 0; i < task_views.length; i++) {
+                    var task_title = task_views[i].querySelector(".title-input")  // task-title
+                    var task_date = task_views[i].querySelector(".choose-date-task")//task-date
+                    if (task_title.value.length > 0 && task_date.value.length > 0) {
+                        // add task to this goal to submit
+                        console.log("Task name: " + task_title.value + " task date: " + task_date.value)
 
-            var node_text = _this.shadowRoot.querySelector(".note-area");
-            console.log("node for this goal and tasks are " + node_text.value);
+                        createEntry(new Task(task_title.value, "", new Date(task_date.value), title_label.value));
+                    }
+                }
 
-            //fetch create a new goal api
-            // after success navigate to mainpage
-              setState("mainPage")           
-          } else {
+                var node_text = _this.shadowRoot.querySelector(".note-area");
+                console.log("node for this goal and tasks are " + node_text.value);
 
-            if (title_label.value.length ==0) {
-              hint_label.style.height = "20px";
-              hint_label.innerHTML = "* Task Title can not be empty";
-              return;
+                createEntry(new Goal(title_label.value, "", new Date(select_date.value)));
+
+                //fetch create a new goal api
+                // after success navigate to mainpage
+                // window.history.back();
+                setState({ state: 'main' });
             } else {
-              hint_label.innerHTML = "";
-              hint_label.style.height = "0px";
-            }
-  
-            if (select_date.value.length ==0) {
-              hint_label.style.height = "20px";
-              hint_label.innerHTML = "* Task Date can not be empty";
-              return;
-            } else {
-              hint_label.innerHTML = "";
-              hint_label.style.height = "0px";
-            }
+                if (title_label.value.length ==0) {
+                    hint_label.style.height = "20px";
+                    hint_label.innerHTML = "* Task Title can not be empty";
+                    return;
+                } else {
+                    hint_label.innerHTML = "";
+                    hint_label.style.height = "0px";
+                }
+                
+                if (select_date.value.length ==0) {
+                    hint_label.style.height = "20px";
+                    hint_label.innerHTML = "* Task Date can not be empty";
+                    return;
+                } else {
+                    hint_label.innerHTML = "";
+                    hint_label.style.height = "0px";
+                }
+                
+                console.log("Task name:" + title_label.value + ", Task date:" + select_date.value )
 
-            
-            console.log("Task name:" + title_label.value + ", Task date:" + select_date.value )
+                var subtask_views = _this.shadowRoot.querySelectorAll(".subtask-view")
+                for (var i = 0; i < subtask_views.length; i++) {
+                    var task_title = subtask_views[i].querySelector(".title-input")  // task-title
+                    var task_date = subtask_views[i].querySelector(".choose-date-subtask")//task-date
+                    if (task_title.value.length > 0 && task_date.value.length > 0) {
+                        // add task to this goal to submit
+                        console.log("Sub Task name: " + task_title.value + "Sub task date: " + task_date.value)
+                    }
+                }
+                var options = _this.shadowRoot.querySelector('.choose-goal-list')
+                console.log("Goal options is " + options.value);
+                var node_text = _this.shadowRoot.querySelector(".note-area");
+                console.log("node for this goal and tasks are " + node_text.value);
 
-            var subtask_views = _this.shadowRoot.querySelectorAll(".subtask-view")
-            for (var i = 0; i < subtask_views.length; i++) {
-              var task_title = subtask_views[i].querySelector(".title-input")  // task-title
-              var task_date = subtask_views[i].querySelector(".choose-date-subtask")//task-date
-              if (task_title.value.length > 0 && task_date.value.length > 0) {
-                  // add task to this goal to submit
-                  console.log("Sub Task name: " + task_title.value + "Sub task date: " + task_date.value)
-              }
+                // window.history.back();
+                setState({ state: 'main' });
             }
-            var options = _this.shadowRoot.querySelector('.choose-goal-list')
-            console.log("Goal options is " + options.value);
-            var node_text = _this.shadowRoot.querySelector(".note-area");
-            console.log("node for this goal and tasks are " + node_text.value);
-
-            //fetch create a new task api
-            // after success navigate to mainpage
-            setState("mainPage")
-          }
-      });
-      
+        });
+        
     }
     
     setupTaskAndGoalButton() {
-      var goal_button = this.shadowRoot.querySelector(".choose-goal");
-      var task_button = this.shadowRoot.querySelector(".choose-task");
-      var note_button = this.shadowRoot.querySelector(".choose-node");
-      var goal_view =  this.shadowRoot.querySelector(".goal-view");
-      var task_view =  this.shadowRoot.querySelector(".task-view");
+        var goal_button = this.shadowRoot.querySelector(".choose-goal");
+        var task_button = this.shadowRoot.querySelector(".choose-task");
+        var note_button = this.shadowRoot.querySelector(".choose-node");
+        var goal_view =  this.shadowRoot.querySelector(".goal-view");
+        var task_view =  this.shadowRoot.querySelector(".task-view");
 
-      var title_label =  this.shadowRoot.querySelector(".title-input");
-      var select_date  = this.shadowRoot.querySelector(".choose-date");
+        var title_label =  this.shadowRoot.querySelector(".title-input");
+        var select_date  = this.shadowRoot.querySelector(".choose-date");
 
-      var _this = this
+        var _this = this
 
-      goal_button.addEventListener('click', function () {
-        goal_button.style.backgroundColor = "orange";
-        task_button.style.backgroundColor = "white";
-        note_button.style.backgroundColor = "white";
-        goal_view.hidden = false;
-        goal_view.style.zIndex = "1000"
-        task_view.style.zIndex = "-1"
-        task_view.hidden = true;
-        title_label.value = ""
-        select_date.value = ""
-      })
-  
-      task_button.addEventListener('click', function () {
-        task_button.style.backgroundColor = "orange";
-        goal_button.style.backgroundColor = "white";
-        note_button.style.backgroundColor = "white";
-        goal_view.hidden = true;
-        task_view.hidden = false;
-        task_view.style.zIndex = "1000"
-        goal_view.style.zIndex = "-1"
-        title_label.value = ""
-        select_date.value = ""
-      })
-  
-      note_button.addEventListener('click', function () {
-        note_button.style.backgroundColor = "orange";
-        goal_button.style.backgroundColor = "white";
-        task_button.style.backgroundColor = "white";
-        goal_view.hidden = true;
-        task_view.hidden = true;
-      })
-  
-      goal_button.click();
+        goal_button.addEventListener('click', function () {
+            goal_button.style.backgroundColor = "orange";
+            task_button.style.backgroundColor = "white";
+            note_button.style.backgroundColor = "white";
+            goal_view.hidden = false;
+            goal_view.style.zIndex = "1000"
+            task_view.style.zIndex = "-1"
+            task_view.hidden = true;
+            title_label.value = ""
+            select_date.value = ""
+        })
+        
+        task_button.addEventListener('click', function () {
+            task_button.style.backgroundColor = "orange";
+            goal_button.style.backgroundColor = "white";
+            note_button.style.backgroundColor = "white";
+            goal_view.hidden = true;
+            task_view.hidden = false;
+            task_view.style.zIndex = "1000"
+            goal_view.style.zIndex = "-1"
+            title_label.value = ""
+            select_date.value = ""
+        })
+        
+        note_button.addEventListener('click', function () {
+            note_button.style.backgroundColor = "orange";
+            goal_button.style.backgroundColor = "white";
+            task_button.style.backgroundColor = "white";
+            goal_view.hidden = true;
+            task_view.hidden = true;
+        })
+        
+        goal_button.click();
     }
 
     setupAddTaskButton() {
-      var goal_create_button = this.shadowRoot.querySelector(".create-goal");  
-      var task_create_button = this.shadowRoot.querySelector(".create-task");  
+        var goal_create_button = this.shadowRoot.querySelector(".create-goal");  
+        var task_create_button = this.shadowRoot.querySelector(".create-task");  
 
-      var _this = this
+        var _this = this
 
-      this.shadowRoot.querySelector(".add-task-view").querySelector('.task-delete').hidden = true;
-      this.shadowRoot.querySelector(".subtask-view").querySelector('.subtask-delete').hidden = true;
+        this.shadowRoot.querySelector(".add-task-view").querySelector('.task-delete').hidden = true;
+        this.shadowRoot.querySelector(".subtask-view").querySelector('.subtask-delete').hidden = true;
 
-      
-      // create task for goal
-      goal_create_button.addEventListener('click', function () {
-        console.log("create task for goal");
-        var goal_view = _this.shadowRoot.querySelector(".goal-view");
-        var create_task_view =  _this.shadowRoot.querySelector(".add-task-view").cloneNode(true);
-        create_task_view.classList.add('add-task-view')
-        var task_title = create_task_view.querySelector(".title-input")  // task-title
-        var task_date = create_task_view.querySelector(".choose-date-task")//task-date
+        
+        // create task for goal
+        goal_create_button.addEventListener('click', function () {
+            console.log("create task for goal");
+            var goal_view = _this.shadowRoot.querySelector(".goal-view");
+            var create_task_view =  _this.shadowRoot.querySelector(".add-task-view").cloneNode(true);
+            create_task_view.classList.add('add-task-view')
+            var task_title = create_task_view.querySelector(".title-input")  // task-title
+            var task_date = create_task_view.querySelector(".choose-date-task")//task-date
 
-        task_title.value = "";
-        task_date.value = "";
+            task_title.value = "";
+            task_date.value = "";
 
-        goal_view.appendChild(create_task_view);
-        create_task_view.querySelector('.task-delete').hidden = false;
+            goal_view.appendChild(create_task_view);
+            create_task_view.querySelector('.task-delete').hidden = false;
 
-    
+            
 
-        var delete_button = create_task_view.querySelector('.task-delete')
-        delete_button.addEventListener('click', function() {
-          create_task_view.remove();
-        })
-      })
-
-      // create subtask for goal
-      task_create_button .addEventListener('click', function () {
-        console.log("create subtask for task");
-        var task_view = _this.shadowRoot.querySelector(".task-view");
-        var option_choose = _this.shadowRoot.querySelector(".choose-goal-title");
-
-        var create_sub_task_view =  _this.shadowRoot.querySelector(".subtask-view").cloneNode(true);
-        create_sub_task_view.classList.add('subtask-view')
-
-        task_view.insertBefore(create_sub_task_view, option_choose);
-
-
-        create_sub_task_view.querySelector('.subtask-delete').hidden = false;
-        var delete_button = create_sub_task_view.querySelector('.subtask-delete')
-        delete_button.addEventListener('click', function() {
-          create_sub_task_view.remove();
-
+            var delete_button = create_task_view.querySelector('.task-delete')
+            delete_button.addEventListener('click', function() {
+                create_task_view.remove();
+            })
         })
 
-      })
+        // create subtask for goal
+        task_create_button .addEventListener('click', function () {
+            console.log("create subtask for task");
+            var task_view = _this.shadowRoot.querySelector(".task-view");
+            var option_choose = _this.shadowRoot.querySelector(".choose-goal-title");
+
+            var create_sub_task_view =  _this.shadowRoot.querySelector(".subtask-view").cloneNode(true);
+            create_sub_task_view.classList.add('subtask-view')
+
+            task_view.insertBefore(create_sub_task_view, option_choose);
+
+
+            create_sub_task_view.querySelector('.subtask-delete').hidden = false;
+            var delete_button = create_sub_task_view.querySelector('.subtask-delete')
+            delete_button.addEventListener('click', function() {
+                create_sub_task_view.remove();
+
+            })
+
+        })
 
     }
 
@@ -595,8 +599,8 @@ class CreatePage extends HTMLElement {
             select.appendChild(opt);
         }
     }
-  
-  }
+    
+}
 
 
-  customElements.define('create-page', CreatePage);
+customElements.define('create-page', CreatePage);

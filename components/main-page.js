@@ -13,10 +13,10 @@ class MainPage extends HTMLElement {
         *{
             user-select:none;
         }
+
         .main-page {
             width: 100%;
             height: 95vh;
-            background-color: rgb(202, 235, 204);
         }
 
         .main-setting {
@@ -28,30 +28,30 @@ class MainPage extends HTMLElement {
         }
 
         .page-title {
-            margin-top:-18px;
-            user-select:none;
-            height: 5vh;
+            user-select: none;
             text-align: center;
             font-size: 1.4rem;
-            color: black;
+            color: #F7FFF6;
+            margin-bottom: 12px;
         }
         
-        .main-page  .record_view {
+        .main-page .record_view {
+            background-color: rgb(157, 201, 160);
             float: left;
             width: 50%;
             height: 100%;
             max-height: 100%;
-            overflow:scroll;
-            border-top-left-radius: 25px;
+            overflow-y: scroll;
         }
 
-        .main-page  .record_view .record_label{
-            font-size:16px;
-            color:gray;
-            margin-left:5px;
+        .sec-label {
+            padding-left: 1rem;
+            font-size: 0.85rem;
+            font-family: 'Noto Sans', sans-serif;
+            color: #888;
         }
         
-        .main-page  .right_view {
+        .main-page .right_view {
             align-self: top right;
             width: 50%;
             height: 100%;
@@ -83,9 +83,6 @@ class MainPage extends HTMLElement {
         .right_view .month_container .btn {
             width: 100%;
             font-size: 1.2rem;
-            margin-bottom: 3%;
-            /*margin-left: 3%;*/
-            /*margin-right: 3%;*/
             margin-top: 0%;
             display: flex;
             justify-content:space-between;
@@ -108,38 +105,46 @@ class MainPage extends HTMLElement {
             float: left;
             color: rgb(48, 47, 47);
         }
+
         .right_view .month_container .Week_btn {
             align-self:auto;
             width: 55%;
             text-align: right;
-            margin-top: 3%;
-            paddig-right: 10px;
-            font-size: 0.9rem;
+            padding-right: 10px;
             float: right;
             user-select:none;
             cursor: pointer;
+
+            font-size: 0.85rem;
+            font-family: 'Noto Sans', sans-serif;
+            color: #888;
         }
         
         .right_view .month_container .Month_btn {
             align-self: auto;
             text-align: right;
             width: 15%;
-            margin-right: 20px;
-            margin-top: 3%;
-            color: green;
-            font-size: 0.9rem;
+            margin-right: 1rem;
+            color: #888;
             float: right;
             margin-right: 10px;
             user-select:none;
             cursor: pointer;
+
+            font-size: 0.85rem;
+            font-family: 'Noto Sans', sans-serif;
+            color: #888;
+        }
+
+        .cal-selected {
+            color: green !important;
         }
         
         .right_view .month_container .day_label {
-            font-weight:100;
             text-align: left;
-            margin-left: 3%;
-            font-size: 1.1rem;
-            width: 100%;
+            padding-left: 1rem;
+            font-size: 1.5rem;
+            margin-top: 0;
         }
         
         .right_view .month_container .week_view {
@@ -147,7 +152,6 @@ class MainPage extends HTMLElement {
             flex-wrap: wrap;
             flex: 0 0 15.36%;
         }
-          
         
         .right_view .month_container .week_view span {
             flex-direction: column;
@@ -162,7 +166,7 @@ class MainPage extends HTMLElement {
         }
         
         
-        .right_view .month_container .week_body  {
+        .right_view .month_container .week_body {
             display: flex;
             flex-wrap: wrap;
             font-size: 0.2rem;
@@ -213,8 +217,8 @@ class MainPage extends HTMLElement {
             margin-top: 0%;
             width: 100%;
             background-color: antiquewhite;
-            height: 37%;
-            overflow: scroll;
+            height: 40%;
+            overflow-y: scroll;
         }
 
         .right_view .plan_view .plan_label {
@@ -227,40 +231,18 @@ class MainPage extends HTMLElement {
             user-select:none;
         }
 
-
         .right_view .plan_view .plan_create {
             cursor: pointer;
-            margin-top: 0%;
-            width: 80%;
-            margin-top: 2%;
-            margin-bottom:20px;
-            margin-left:10%;
-            position: relative;
-            display: inline-block;
-            border: 3.5px solid gray; 
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            border: 1px solid gray; 
             border-style: dashed;
-            border-radius: 15px;
-            height:40px;
-        }
-
-        .right_view .plan_view .plan_create .plan_create_img {
-            margin-top: 5px;
-            margin-left:10px;
-            width: 30px;
-            height:30px;
-        }
-
-        .right_view .plan_view .plan_create  .create_label{
-            position: absolute;
-            z-index: 999;
-            margin-left:20px;
-            margin-top:10px;
-            font-size:16px;
-            left: 0;
-            right: 0;
-            top: 0%; 
-            text-align: center;
-            width: 60%; 
+            border-radius: 0.5rem;
+            line-height: 3;
+            margin-top: 0;
+            width: 90%;
         }
 
         .right_view .plan_view .plan_create:hover {
@@ -268,34 +250,30 @@ class MainPage extends HTMLElement {
         }
 
         </style>
-        <img class="main-setting" src="./src/images/setting.png"></img>
-        <div class="page-title">ChimPlanzee</div>
+        <div class="page-title">Chimplanzee</div>
         <div class="main-page">
             <div class="record_view"> 
-                <p class="record_label">RECORD</p>
+                <p class="sec-label">RECORD</p>
             </div>
             <div class="sep"></div>
             <div class="right_view">
                 <div class="month_container">
                     <div class="btn" >
-                         <div class = "review_label">REVIEW</div>
-                         <div class = "btns">
-                            <div class="Week_btn" >WEEK</div>
-                            <div class="Month_btn">MONTH</div>
+                         <p class="sec-label">REVIEW</p>
+                         <div class="btns">
+                            <div class="Week_btn">WEEK</div>
+                            <div class="Month_btn cal-selected">MONTH</div>
                          </div>
-                        
                     </div>
     
-                     <div class="day_label" data-calendar-label="month"></div>
+                    <div class="day_label" data-calendar-label="month"></div>
                     <div class="week_view"></div>
                     <div class="week_body" data-calendar-area="month"></div>
                 </div>
-                <div class = "plan_view">
-                    <p class="plan_label">PLAN</p>
-                    <div class="plan_create">
-                        <img class="plan_create_img" src="./src/images/create.png"> </img>
-                        <p class="create_label">Create task or goals here</p>
-                    </div>
+                <div class="plan_view">
+                    <p class="sec-label">PLAN</p>
+                    <div class="plan_view_content"></div>
+                    <p class="plan_create">+ Create task or goals here</p>
                 </div>
             </div>
         </div>
@@ -320,35 +298,21 @@ class MainPage extends HTMLElement {
             entryImage.alt = entry.image.alt;
             this.shadowRoot.querySelector('.entry').appendChild(entryImage);
         }
-
-      
-
     }
 
 
-   // Just like the entry-page  Update the days's tasks ----- on router.js file's  "gotoPage" function state "mainPage"
+    // Just like the entry-page  Update the days's tasks ----- on router.js file's  "gotoPage" function state "mainPage"
     set calender(cal) {
         calendar.init({
             disablePastDays: true,
-            details: {
-            "Fri Jun 04 2021" : "Just test detail display layout",  // format of json of details
-            "Thu Jun 24 2021" : "Clean dishes, Do this a longer task 1 guess"  // format of json of details
-            },
+            details: cal,
             root: this.shadowRoot
         });
 
-        this.shadowRoot.querySelector('.main-setting').addEventListener('click', function () {
-            console.log("click setting");
-            alert("click setting button" );
-
-        })
-
-
         this.shadowRoot.querySelector('.plan_create').addEventListener('click', function () {
-            console.log("click create");
-            setState("createPage");
+            setState({ state: 'create' });
         })
-    
+        
     }
 }
 

@@ -9,14 +9,11 @@ class PlanNode extends HTMLElement {
           <style>
               .plan {
                   background-color: rgb(157, 201, 160);
-                  margin-top:2%;
-                  margin-left:10%;
-                  margin-right:10%;
-                  width:80%;
-                  height:50px;
                   border: 1.5px solid gray;
-                  border-radius: 15px;
-                  margin-bottom:25px;
+                  border-radius: 0.5rem;
+                  margin-bottom: 0.5rem;
+                  margin-left: 1rem;
+                  margin-right: 1rem;
               }
 
               .plan:hover {
@@ -26,16 +23,16 @@ class PlanNode extends HTMLElement {
               }
               
               .plan .plan-label {
-                  margin-top:5px;
-                  margin-left:5%;
-                  font-size:16px;
+                  margin-top: 0.6rem;
+                  margin-left: 1rem;
+                  font-size: 1.25rem;
                   text-color: black;
               }
              
               .plan .plan-content {
-                margin-left:5%;
-                font-size:13px;
-                text-color: black;
+                  margin-bottom: 0.6rem;
+                  margin-left: 1rem;
+                  text-color: black;
             }
 
           </style>
@@ -64,8 +61,8 @@ class PlanNode extends HTMLElement {
       let max = pastels.length;
       let randomIndex = Math.floor(Math.random() * (max - min) + min);
       this.shadowRoot.querySelector('.plan').style.backgroundColor = pastels[randomIndex];
-      this.shadowRoot.querySelector('.plan-label').innerText = goal.name;
-      this.shadowRoot.querySelector('.plan-content').innerText = "this is a node" + goal.content;
+      this.shadowRoot.querySelector('.plan-label').innerText = goal.title;
+      this.shadowRoot.querySelector('.plan-content').innerText = goal.content;
 
     }
   
