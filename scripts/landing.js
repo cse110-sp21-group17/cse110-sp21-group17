@@ -7,7 +7,7 @@ import { router } from './router.js'; // Router imported so you can use it to ma
 const setState = router.setState;
 
 //let fields = [nameInput, emailInput, passwordInput];
-nameInput.onchange = e =>  {
+nameInput.oninput = e =>  {
     updateButton();
 }
 
@@ -15,11 +15,11 @@ nameInput.onclick = e => {
     console.log('click')
 }
 
-emailInput.onchange = e =>  {
+emailInput.oninput = e =>  {
     updateButton();
 }
 
-passwordInput.onchange = e =>  {
+passwordInput.oninput = e =>  {
     updateButton();
 }
 
