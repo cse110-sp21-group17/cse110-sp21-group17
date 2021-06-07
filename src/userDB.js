@@ -1,19 +1,20 @@
-import Dexie from 'dexie';
-//import Task  from './object_files/objects';
-import Note from '/object_files.objects.js';
-import Task from '/object_files.objects.js';
-import Subtask from '/object_files.objects.js';
-import Event from '/object_files.objects.js';
-import Goal from '/object_files.objects.js';
+import { Note, Task, Subtask, Event, Goal, Entry } from './object_files/objects.js';
 
 let db; //Global database variable
+
+var groupBy = function(xs, key) {
+    return xs.reduce(function(rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
+    }, {});
+};
 
 /**
  * Opens a database if it exists, creates one if it doesn't 
  * @param {string} username - Will be the name of the database
  * @returns {void} Nothing
  */
-function openUserDB(username){   //This function opens a database. If it doesn't already exist, it creates one.
+export function openUserDB(username){   //This function opens a database. If it doesn't already exist, it creates one.
     db = new Dexie(username);
     db.version(1).stores({
         tasks: 'id++, entryDate, goal, subtaskids',
@@ -34,7 +35,7 @@ function openUserDB(username){   //This function opens a database. If it doesn't
  * @param {Task|Note|Event|Goal} toStore - Will be the object stored
  * @returns {Entry} - The object that was stored
  */
-async function createEntry(toStore){ //This function takes a storable object and stores it in the appropriate table
+export async function createEntry(toStore) { //This function takes a storable object and stores it in the appropriate table
     if(toStore instanceof Task){
         let temp = await db.tasks.put(toStore); //Store in DB and get ID
         toStore.id = temp; //Append ID to object
@@ -63,7 +64,7 @@ async function createEntry(toStore){ //This function takes a storable object and
  * @param {Entry} toEdit 
  * @returns {void} Nothing
  */
-function editEntry(toEdit){
+export function editEntry(toEdit){
     if(toEdit instanceof Task){
         db.tasks.update(toEdit.id, toEdit);
     }
@@ -87,7 +88,7 @@ function editEntry(toEdit){
  * @param {Entry} toDelete 
  * @returns {void} Nothing
  */
-function deleteEntry(toDelete){ //
+export function deleteEntry(toDelete){ //
     if(toDelete instanceof Task){
         db.tasks.delete(toDelete.id);
         toDelete.subtaskIds.forEach(curSubtaskId => deleteEntry(db.subtasks.get(curSubTaskId)));
@@ -116,7 +117,7 @@ function deleteEntry(toDelete){ //
  * @return {Task|Subtask} Returns the object with the toComplete flag set to true
  */
 
-function completeTask(toComplete){
+export function completeTask(toComplete){
     if(toComplete instanceof Task){
         toComplete.isCompleted = true;
         db.tasks.update(toComplete.id, toComplete);
@@ -133,13 +134,71 @@ function completeTask(toComplete){
  * @param {Date} dateIndex - The date object you want to access 
  * @returns {[[Task], [Subtask], [Note], [Event], [Goal]]}
  */
-async function getDateEntries(dateIndex){ //Get all of the entries on a given date
+export async function getDateEntries(dateIndex) { //Get all of the entries on a given date
     let taskArr = await db.tasks.where("entryDate").equals(dateIndex).toArray();
     let subtaskArr = taskArr.forEach(curTask => getSubtasks(curTask));
     let noteArr = await db.notes.where("entryDate").equals(dateIndex).toArray();
     let eventArr = await db.events.where("entryDate").equals(dateIndex).toArray();
     let goalArr = await db.goals.where("entryDate").equals(dateIndex).toArray();
+
     return [taskArr, subtaskArr, noteArr, eventArr, goalArr]
+}
+
+function fmtDate(d) {
+    let options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    return d.toLocaleString('en', options);
+}
+
+// get all dated entries?
+export async function getDatedEntries() {
+    var res = {};
+    
+    let taskArr = await db.tasks.toArray();
+    for (var i = 0; i < taskArr.length; i++) {
+        let sts = await getSubtasks(taskArr[i]);
+
+        console.log(taskArr[i]);
+
+        let key = fmtDate(taskArr[i].entryDate_m);
+        if (!(key in res)) {
+            res[key] = []
+        }
+
+        res[key].push({ t: taskArr[i], sts: sts });
+    }
+
+    let noteArr = await db.notes.toArray();
+    let eventArr = await db.events.toArray();
+
+    for (var i = 0; i < noteArr.length; i++) {
+        let key = fmtDate(noteArr[i].entryDate_m);
+        if (!(key in res)) {
+            res[key] = []
+        }
+
+        res[key].push(noteArr[i]);
+    }
+
+    for (var i = 0; i < eventArr.length; i++) {
+        let key = fmtDate(eventArr[i].entryDate_m);
+        if (!(key in res)) {
+            res[key] = []
+        }
+
+        res[key].push(eventArr[i]);
+    }
+
+    return res;
+}
+
+export async function getGoals() {
+    let gs = await db.goals.toArray();
+    let ngs = [];
+    for (var i = 0; i < gs.length; i++) {
+        let ts = await getGoalTasks(gs[i]);
+        ngs.push({ g: gs[i], ts: ts });
+    }
+    return ngs;
 }
 
 /**
@@ -147,8 +206,8 @@ async function getDateEntries(dateIndex){ //Get all of the entries on a given da
  * @param {Goal} goalIndex
  * @returns {[Task]} All the tasks associated with the input goal
  */
-async function getGoalTasks(goalIndex){ //Get all of the entries (which are only tasks and their subtasks) of a given goal
-    let taskArr = await db.tasks.where("goal").equals(goalIndex.description).toArray();
+export async function getGoalTasks(goal){ //Get all of the entries (which are only tasks and their subtasks) of a given goal
+    let taskArr = await db.tasks.where("goal").equals(goal.description).toArray();
     return taskArr;
 }
 
@@ -158,7 +217,7 @@ async function getGoalTasks(goalIndex){ //Get all of the entries (which are only
  * @param {Subtask} subToAdd
  * @returns {[Task, Subtask]} Returns an array with the first element as an updated task and the second as the updated subtask
  */
-async function addSubtask(taskToEdit, subToAdd){ //Add subtask to a task
+export async function addSubtask(taskToEdit, subToAdd){ //Add subtask to a task
     let temp = await db.subtasks.put(subToAdd);
     subToAdd.id = temp;
     subToAdd.parentID = taskToEdit.id;
@@ -173,8 +232,8 @@ async function addSubtask(taskToEdit, subToAdd){ //Add subtask to a task
  * @param {Task} taskIndex - Task we want to access
  * @returns {[Subtask]} All the subtasks of a given task
  */
-async function getSubtasks(taskIndex){ //Get all subtasks of a task
+export async function getSubtasks(taskIndex){ //Get all subtasks of a task
     let subtaskArr = [];
-    taskIndex.subtaskIds.forEach(id => await subtaskArr.push(db.subtasks.get(id)));
+    taskIndex.subtaskIds.forEach(async id => await subtaskArr.push(db.subtasks.get(id)));
     return subtaskArr;
 }

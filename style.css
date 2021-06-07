@@ -1,7 +1,7 @@
 /* styles for this webapp. */
 * {
     color: #3d3d3d;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Playfair Display', serif;
 }
   
 body {
@@ -26,14 +26,15 @@ body {
  .title {
     height: 5vh;
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 2rem;
     color: black;
+    padding-top: 0.5em;
 }
 
 body .landing .bottom-part {
     background-color: rgb(61, 58, 59);
     margin-top: 55vh;
-    height: 45vh;
+    height: 40vh;
     width: 100%;
     position: absolute;
     z-index: 10;
@@ -44,20 +45,48 @@ body .landing .slogan {
     color: rgb(100, 100, 100);
     display: block;
     margin-top: 15vh; 
+    margin-left: 7.5rem;
     height: 20vh;
     width: 60vh;
-    text-align: center;
+    /* text-align: center; */
     z-index: 100;
-    font-size: large;
+    font-size: 2.75rem;
+    line-height: 1.2;
+}
+
+body .landing .description {
+    position: absolute;
+    color: rgb(100, 100, 100);
+    display: block;
+    margin-top: 30vh; 
+    margin-left: 7.5rem;
+    height: 20vh;
+    width: 60vh;
+    /* text-align: center; */
+    z-index: 100;
+    font-size: 1.35rem;
+}
+
+p.pseudo-footer {
+    position: absolute;
+    color: rgb(150, 150, 150);
+    display: block;
+    margin-top: 83.5vh; 
+    margin-left: 11rem;
+    height: 20vh;
+    width: 60vh;
+    /* text-align: center; */
+    z-index: 100;
+    font-size: 1.05rem;
 }
 
 body .landing .logo {
     position: absolute;
     display: block;
-    margin-top: 30vh; 
-    margin-left: 12vh;
-    height: 36vh;
-    width: 36vh;
+    margin-top: 82.5vh; 
+    margin-left: 7.5rem;
+    height: 5vh;
+    width: 5vh;
     z-index: 100;
 }
 
@@ -65,10 +94,9 @@ body .landing .login {
     position: absolute;
     background-color: rgb(202, 235, 204);
     display: block;
-    margin-top: 10vh; 
+    margin-top: 15vh; 
     margin-right: 5vh;
     margin-left: 60vw;
-    height: 70vh;
     width: 30vw;
     text-align: center;
     z-index: 200;
@@ -78,23 +106,34 @@ body .landing .login {
 
 body .landing .login * {
     margin-top: 3vh;
-    margin-right: 10%;
-    margin-left: 10%;
+    margin-right: 5%;
+    margin-left: 5%;
     position: relative;
-    width: 80%;
-    height: 8vh;
+    width: 90%;
 }
 
 body .landing .login .label {
-    font-size: medium;
+    font-size: 1.75rem;
     text-align: center;
-    margin-top: 5vh;
-    height: 6vh;
 }
 
+body .landing .login .label-desc {
+    text-align: center;
+    color: rgb(150, 150, 150);
+    font-style: italic;
+    margin-top: 0rem;
+}
+
+body .landing .login .userName {
+    margin-top: 12.5rem;
+    font-size: 1.5rem;
+}
+
+
 body .landing .login .submit{
-    margin-top: 8vh;
-    height: 8vh;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    height: 2.5rem;
     border: #696868;
     background-color: #696868;
     color: white;
@@ -105,6 +144,10 @@ body .landing .login .submit{
 
 /* main page CSS start */
 
+main-page {
+    background-color: #3C3744;
+    overflow: hidden;
+}
 
 
 
