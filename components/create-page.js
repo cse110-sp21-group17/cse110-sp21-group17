@@ -1,6 +1,6 @@
 // <plan-Node> custom web component
 import { Goal, Task } from "../src/object_files/objects.js";
-import { createEntry } from "../src/userDB.js";
+import { createEntry, getGoals} from "../src/userDB.js";
 import { router } from '../scripts/router.js'; // Router imported so you can use it to manipulate your SPA app here
 const setState = router.setState;
 
@@ -336,7 +336,7 @@ class CreatePage extends HTMLElement {
               </div>
               <h4 class="choose-goal-title">Choose Goal:
                   <select class="choose-goal-list">
-                      <option value="0">Default Goal</option>
+                      <option value="0">No Goal</option>
                   </select>
               </h4>
          </div>
@@ -380,8 +380,19 @@ class CreatePage extends HTMLElement {
 
         this.setupAddTaskButton();
 
-        var goadlOptions = ["Family Goal", "Fitness Goal", "Study Goal"]
-        this.addGoalOptions(goadlOptions);
+        //var goadlOptions = ["Family Goal", "Fitness Goal", "Study Goal"]
+        getGoals().then(goals => {
+          console.log(goals);
+          let names = [];
+          for(let i = 0; i < goals.length; i++)
+          {
+            console.log(goals[i].g.description);
+            names.push(goals[i].g.description);
+          }
+          this.addGoalOptions(names);
+        });
+        //console.log(goalOptions);
+        //this.addGoalOptions(goadlOptions);
         
         this.setUpSubmitButton();
         

@@ -324,7 +324,8 @@ class MainPage extends HTMLElement {
         })
 
         this.shadowRoot.querySelector('.create-button').addEventListener('click', () => {
-            setState("createPage");
+            setState({state: 'create'});
+            console.log("clicked");
         })
     
         
