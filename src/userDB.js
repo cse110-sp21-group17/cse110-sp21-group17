@@ -1,4 +1,6 @@
 import { Note, Task, Subtask, Event, Goal, Entry } from './object_files/objects.js';
+import Dexie from 'dexie'
+require("fake-indexeddb/auto");
 
 let db; //Global database variable
 
@@ -14,7 +16,7 @@ var groupBy = function(xs, key) {
  * @param {string} username - Will be the name of the database
  * @returns {void} Nothing
  */
-export function openUserDB(username){   //This function opens a database. If it doesn't already exist, it creates one.
+export async function openUserDB(username){   //This function opens a database. If it doesn't already exist, it creates one.
     db = new Dexie(username);
     db.version(1).stores({
         tasks: 'id++, entryDate, goal, subtaskids',
@@ -28,7 +30,19 @@ export function openUserDB(username){   //This function opens a database. If it 
     db.notes.mapToClass(Note);
     db.events.mapToClass(Event);
     db.goals.mapToClass(Goal);
+    return await Dexie.exists(username);
 }   //Once this is done, we retun nothing but db stores the current user database so we can access its contents and only its contents
+
+/**
+ * Deletes the database if it exists, does nothing if it doesn't
+ * @param {string} username - Name of the database
+ * @return {boolean} If the database was deleted or not
+ */
+export async function deleteUserDB(username){
+    let exist = await Dexie.exists(username);
+    Dexie.delete(username);
+    return exist;
+}
 
 /**
  * Stores entries, excluding subnotes
