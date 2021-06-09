@@ -56,7 +56,10 @@ function storeTask(task){
 function createGoal(name) {
     return new Goal(name);
 }
-
+/**
+ * 
+ * @param {String} goal Name of the goal
+ */
 function storeGoal(goal){
     //localStorage.setItem(name, JSON.stringify([]));
 }
