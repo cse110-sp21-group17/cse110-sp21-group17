@@ -148,7 +148,7 @@ export function completeTask(toComplete){
 /**
  * Returns all entries on a date.
  * @param {Date} dateIndex - The date object you want to access 
- * @returns {[[Task], [Subtask], [Note], [Event], [Goal]]}
+ * @returns {Array containing arrays of Tasks, Subtasks, Notes, Events, Goals}
  */
 export async function getDateEntries(dateIndex) { //Get all of the entries on a given date
     let taskArr = await db.tasks.where("entryDate").equals(dateIndex).toArray();
