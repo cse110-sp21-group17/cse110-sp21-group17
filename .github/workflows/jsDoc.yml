@@ -7,8 +7,8 @@ on:
       - '*/*'       # matches every branch containing a single '/'
       - '**'        # matches every branch
       - '!main'   # excludes master
-    paths:
-      - 'src/**'
+    # paths:
+    #   - 'src/**'
 
 
 jobs:
