@@ -45,7 +45,7 @@ class CreatePage extends HTMLElement {
         }
 
         .choose-area  .choose-node {
-          display: none;
+          /*display: none;*/
         }
 
         .choose-area button:active {
@@ -292,7 +292,7 @@ class CreatePage extends HTMLElement {
          <div class="choose-area">
             <button class="choose-goal" >Goal</button>
             <button class="choose-task">Task</button>
-           <button  class="choose-node">Note</button>
+            <button  class="choose-node">Note</button>
          </div>
          <input class="title-input" placeholder="enter the title here"></input>
          <form class="date-pick">
@@ -414,7 +414,7 @@ class CreatePage extends HTMLElement {
         var _this = this
 
         submit_button.addEventListener('click', function () {
-            if (task_view.hidden == true) { // current in the create goal view
+            if (goal_view.hidden == false) { // current in the create goal view
                 console.log("Goal name:" + title_label.value + ", goal date:" + select_date.value )
 
                 if (title_label.value.length ==0) {
@@ -456,7 +456,7 @@ class CreatePage extends HTMLElement {
                 // after success navigate to mainpage
                 // window.history.back();
                 setState({ state: 'main' });
-            } else {
+            } else if(task_view.hidden=false) {
                 if (title_label.value.length ==0) {
                     hint_label.style.height = "20px";
                     hint_label.innerHTML = "* Task Title can not be empty";
@@ -493,6 +493,9 @@ class CreatePage extends HTMLElement {
 
                 // window.history.back();
                 setState({ state: 'main' });
+            }
+            else{
+              console.log('note-view');
             }
         });
         
