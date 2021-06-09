@@ -220,7 +220,7 @@ export async function getGoals() {
 /**
  * Returns all tasks for a goal
  * @param {Goal} goalIndex
- * @returns {[Task]} All the tasks associated with the input goal
+ * @returns {TaskArray} A task array containing all the tasks associated with the input goal
  */
 export async function getGoalTasks(goal){ //Get all of the entries (which are only tasks and their subtasks) of a given goal
     let taskArr = await db.tasks.where("goal").equals(goal.description).toArray();
@@ -231,7 +231,7 @@ export async function getGoalTasks(goal){ //Get all of the entries (which are on
  * Adds a subtask to storage, updates its parent, and returns them both, updated 
  * @param {Task} taskToEdit
  * @param {Subtask} subToAdd
- * @returns {[Task, Subtask]} Returns an array with the first element as an updated task and the second as the updated subtask
+ * @returns {Array} Returns an array with the first element as an updated task and the second as the updated subtask
  */
 export async function addSubtask(taskToEdit, subToAdd){ //Add subtask to a task
     let temp = await db.subtasks.put(subToAdd);
@@ -246,7 +246,7 @@ export async function addSubtask(taskToEdit, subToAdd){ //Add subtask to a task
 /**
  * Gets all the subtasks of a given task
  * @param {Task} taskIndex - Task we want to access
- * @returns {[Subtask]} All the subtasks of a given task
+ * @returns {SubtaskArray} All the subtasks of a given task
  */
 export async function getSubtasks(taskIndex){ //Get all subtasks of a task
     let subtaskArr = [];
