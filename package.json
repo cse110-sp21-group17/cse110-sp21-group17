@@ -4,7 +4,7 @@
   "description": "[Team Page](admin/team.md)",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "jest": {
     "transform": {
