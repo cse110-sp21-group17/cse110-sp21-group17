@@ -2,7 +2,7 @@ import { Note, Task, Subtask, Event, Goal, Entry } from './object_files/objects.
 import Dexie from 'dexie'
 require("fake-indexeddb/auto");
 
-let db; //Global database variable
+export var db; //Global database variable
 
 var groupBy = function(xs, key) {
     return xs.reduce(function(rv, x) {
@@ -30,7 +30,8 @@ export async function openUserDB(username){   //This function opens a database. 
     db.notes.mapToClass(Note);
     db.events.mapToClass(Event);
     db.goals.mapToClass(Goal);
-    return await Dexie.exists(username);
+    
+    return Dexie.exists(username).then(function (exists) {return exists});
 }   //Once this is done, we retun nothing but db stores the current user database so we can access its contents and only its contents
 
 /**
@@ -39,8 +40,9 @@ export async function openUserDB(username){   //This function opens a database. 
  * @return {boolean} If the database was deleted or not
  */
 export async function deleteUserDB(username){
-    let exist = await Dexie.exists(username);
+    
     Dexie.delete(username);
+    let exist = await Dexie.exists(username);
     return exist;
 }
 
