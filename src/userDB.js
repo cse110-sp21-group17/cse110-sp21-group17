@@ -237,3 +237,5 @@ export async function getSubtasks(taskIndex){ //Get all subtasks of a task
     taskIndex.subtaskIds.forEach(async id => await subtaskArr.push(db.subtasks.get(id)));
     return subtaskArr;
 }
+
+module.exports = creationTool;
