@@ -1,4 +1,4 @@
-# May 20, 2021 Meeting Sprint 1
+# June 08, 2021 Meeting Sprint 2
 
 ## 6:20pm-6:00pm, remote on zoom
 
