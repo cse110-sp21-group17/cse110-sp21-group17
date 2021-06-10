@@ -19,48 +19,77 @@ describe('Creation of units and deletion of db', function(){
     //     let exist = await Dexie.exists(username);
     //     expect(exist).toBe(true);
     //   });
-    // test('First test of the dexie implementation yay', done => {
-    //     // db = null;
-    //     // creationTool.openUserDB("Test_User");
-    //     // expect(db).not.toBe(null);
+    test('Can we open a db', () => {
+        creationTool.db = null;
+        creationTool.openUserDB("Test_User");
+        expect(creationTool.db).not.toBe(null);
     //     return expect(creationTool.openUserDB("Test_User")).resolves.toEqual(true);
-    // });
+     });
 
     
     //
     // Tests goes here...
     //
-    
-    // it('Tests to see if we can add a note', () =>{
-    //     creationTool.openUserDB("Test_User");
-    //     creationTool.createEntry(note1);
-    
-    //     // Assertions
-    //     expect(creationTool.db.notes.count()).resolves.toBe(1);
-    // });
-    // it('Tests to see if we can add a task', () =>{
-    //     creationTool.createEntry(task1);
-    
-    //     // Assertions
-    //     expect(creationTool.db.tasks.count()).resolves.toBe(1);
-    // });
-    // it('Tests to see if we can add an event', () =>{
 
-    //     creationTool.createEntry(event1);
-    
-    //     // Assertions
-    //     expect(creationTool.db.events.count()).resolves.toBe(1);
-    // });
-    // it('Tests to see if we can add a goal', () =>{
+    test('Tests to see if we can add a note', () => {
+      
+         
+         creationTool.createEntry(note1);
+         
+         return creationTool.db.notes.count().then(count => {
+            expect(count).toBe(1);
+          });
+      });
 
-    //     creationTool.createEntry(goal1);
+      afterAll(async () => {
+        //await connection.close();
+        await creationTool.db.close();
+      });
     
-    //     // Assertions
-    //     expect(creationTool.db.goals.count()).resolves.toBe(1);
-    // });
+      test('Tests to see if we can add a task', () => {
+      
+         
+        creationTool.createEntry(task1);
+        
+        return creationTool.db.tasks.count().then(count => {
+           expect(count).toBe(1);
+         });
+     });
+     test('Tests to see if we can add a event', () => {
+      
+         
+        creationTool.createEntry(event1);
+        
+        return creationTool.db.events.count().then(count => {
+           expect(count).toBe(1);
+         });
+     });
+
+     test('Tests to see if we can add a goal', () => {
+      
+         
+        creationTool.createEntry(goal1);
+        
+        return creationTool.db.goals.count().then(count => {
+           expect(count).toBe(1);
+         });
+     });
+
+     test('Tests to see if we can delete a database', () => {
+      
+         
+        creationTool.deleteUserDB("Test_User");
+        
+        return Dexie.exists("Test_User").then(exists => {
+           expect(exists).toBe(false);
+         });
+     });
+
     // it('Tests to see if we can delete a database', () =>{
 
     //     // Assertions
     //     expect(creationTool.deleteUserDB("Test_User")).resolves.toBe(false);
     // });
+    //knex.destroy();
 });
+
