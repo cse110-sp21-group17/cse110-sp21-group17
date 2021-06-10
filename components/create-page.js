@@ -456,7 +456,7 @@ class CreatePage extends HTMLElement {
                 // after success navigate to mainpage
                 // window.history.back();
                 setState({ state: 'main' });
-            } else if(task_view.hidden=false) {
+            } else if( task_view.hidden == false) {
                 if (title_label.value.length ==0) {
                     hint_label.style.height = "20px";
                     hint_label.innerHTML = "* Task Title can not be empty";
@@ -475,6 +475,7 @@ class CreatePage extends HTMLElement {
                     hint_label.style.height = "0px";
                 }
                 
+                let goal = _this.shadowRoot.querySelector('.choose-goal-list');
                 console.log("Task name:" + title_label.value + ", Task date:" + select_date.value )
 
                 var subtask_views = _this.shadowRoot.querySelectorAll(".subtask-view")
@@ -491,6 +492,7 @@ class CreatePage extends HTMLElement {
                 var node_text = _this.shadowRoot.querySelector(".note-area");
                 console.log("node for this goal and tasks are " + node_text.value);
 
+                createEntry(new Task(title_label.value, "", new Date(select_date.value), goal.value ));
                 // window.history.back();
                 setState({ state: 'main' });
             }
