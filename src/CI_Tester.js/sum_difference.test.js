@@ -1,4 +1,4 @@
-const {sum, power} = require("./sum_difference");
+const { sum, power } = require("./sum_difference");
 
 test("adds 1 + 2 to equal 3", () => {
   expect(sum(1, 2)).toBe(3);
