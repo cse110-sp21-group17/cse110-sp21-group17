@@ -246,7 +246,7 @@ export async function addSubtask(taskToEdit, subToAdd){ //Add subtask to a task
 /**
  * Gets all the subtasks of a given task
  * @param {Task} taskIndex - Task we want to access
- * @returns {SubtaskArray} All the subtasks of a given task
+ * @returns {Subtasks[]} All the subtasks of a given task
  */
 export async function getSubtasks(taskIndex){ //Get all subtasks of a task
     let subtaskArr = [];
