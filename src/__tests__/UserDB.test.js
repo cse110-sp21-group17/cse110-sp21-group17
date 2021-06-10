@@ -118,11 +118,4 @@ describe("Creation of units and deletion of db", function () {
       expect(exists).toBe(false);
     });
   });
-
-  // it('Tests to see if we can delete a database', () =>{
-
-  //     // Assertions
-  //     expect(creationTool.deleteUserDB("Test_User")).resolves.toBe(false);
-  // });
-  //knex.destroy();
 });
