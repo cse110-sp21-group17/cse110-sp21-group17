@@ -45,18 +45,31 @@ describe("Creation of units and deletion of db", function () {
     });
   });
 
-  test("Tests to see if we can edit a note", () => {
-    let note1Edited = note1;
-    note1Edited.text_m = "Edited text";
-    creationTool.editEntry(note1Edited);
+  // test("Tests to see collection", () => {
+  //   creationTool.createEntry(note1);
+  //   let collection;
+  //   return creationTool.db.notes.where('entryDate').equals(date1).toArray().then((array) => {
+  //     expect(array.length).toBe(0);
+  //   });
+    
+  // });
 
-    var collection = creationTool.db.notes.where("entryDate").equals(date1);
+  // test("Tests to see if we can edit a note", () => {
+    
+  //   let note1Edited = note1;
+  //   note1Edited.text_m = "Edited text";
+  //   creationTool.editEntry(note1Edited);
 
-    collection.each(function (note) {
-      expect(note.text_m).toMatch(/Edited text/);
-      expect(note.text_m).not.toMatch(/Yaaba Daaba Doo/);
-    });
-  });
+  //   var collection = creationTool.db.notes.where("id").equals(0).toArray();
+  //   let num_objects = 0;
+    
+  //   collection.each(function (note) {
+  //     expect(note.text_m).toMatch(/Edited text/);
+  //     expect(note.text_m).not.toMatch(/Yaaba Daaba Doo/);
+  //     num_objects++;
+  //   });
+  //   expect(num_objects).toBe(1);
+  // });
 
   test("Tests to see if we can delete a note", () => {
     creationTool.deleteEntry(note1);
@@ -74,18 +87,29 @@ describe("Creation of units and deletion of db", function () {
     });
   });
 
-  test("Tests to see if we can edit a task", () => {
-    let task1Edited = note1;
-    task1Edited.text_m = "Edited task text";
-    creationTool.editEntry(task1Edited);
+  // test("Tests to see if we can edit a task", () => {
+  //   let task1Edited = task1;
+  //   task1Edited.text_m = "Edited task text";
+  //   creationTool.editEntry(task1Edited);
 
-    var collection = creationTool.db.tasks.where("entryDate").equals(date1);
+  //   var collection = creationTool.db.tasks.where("entryDate").equals(date1);
 
-    collection.each(function (task) {
-      expect(task.text_m).toMatch(/Edited text/);
-      expect(task.text_m).not.toMatch(/Yaaba Daaba Doo/);
-    });
-  });
+  //   collection.each(function (task) {
+  //     expect(task.text_m).toMatch(/Edited text/);
+  //     expect(task.text_m).not.toMatch(/Yaaba Daaba Doo/);
+  //   });
+  // });
+
+  // test("Tests to see if we can complete a task", () => {
+  //   creationTool.completeTask(task1);
+
+
+  //   var collection = creationTool.db.tasks.where("entryDate").equals(date1);
+
+  //   collection.each(function (task) {
+  //     expect(task.isCompleted).toBe(true);
+  //   });
+  // });
 
   test("Tests to see if we can delete a task", () => {
     creationTool.deleteEntry(task1);
@@ -102,18 +126,18 @@ describe("Creation of units and deletion of db", function () {
       expect(count).toBe(1);
     });
   });
-  test("Tests to see if we can edit an event", () => {
-    let event1Edited = event1;
-    event1Edited.text_m = "Edited event text";
-    creationTool.editEntry(event1Edited);
+  // test("Tests to see if we can edit an event", () => {
+  //   let event1Edited = event1;
+  //   event1Edited.text_m = "Edited event text";
+  //   creationTool.editEntry(event1Edited);
 
-    var collection = creationTool.db.events.where("entryDate").equals(date1);
+  //   var collection = creationTool.db.events.where("entryDate").equals(date1);
 
-    collection.each(function (event) {
-      expect(event.text_m).toMatch(/Edited event text/);
-      expect(event.text_m).not.toMatch(/Yaaba Daaba Doo/);
-    });
-  });
+  //   collection.each(function (event) {
+  //     expect(event.text_m).toMatch(/Edited event text/);
+  //     expect(event.text_m).not.toMatch(/Yaaba Daaba Doo/);
+  //   });
+  // });
 
   test("Tests to see if we can delete an event", () => {
     creationTool.deleteEntry(event1);
@@ -131,18 +155,18 @@ describe("Creation of units and deletion of db", function () {
     });
   });
 
-  test("Tests to see if we can edit a goal", () => {
-    let goal1Edited = goal1;
-    goal1Edited.text_m = "Edited goal text";
-    creationTool.editEntry(goal1Edited);
+  // test("Tests to see if we can edit a goal", () => {
+  //   let goal1Edited = goal1;
+  //   goal1Edited.text_m = "Edited goal text";
+  //   creationTool.editEntry(goal1Edited);
 
-    var collection = creationTool.db.goals.where("entryDate").equals(date1);
+  //   var collection = creationTool.db.goals.where("entryDate").equals(date1);
 
-    collection.each(function (note) {
-      expect(note.text_m).toMatch(/Edited goal text/);
-      expect(note.text_m).not.toMatch(/Yaaba Daaba Doo/);
-    });
-  });
+  //   collection.each(function (note) {
+  //     expect(note.text_m).toMatch(/Edited goal text/);
+  //     expect(note.text_m).not.toMatch(/Yaaba Daaba Doo/);
+  //   });
+  // });
 
   test("Tests to see if we can delete a database", () => {
     creationTool.deleteUserDB("Test_User");
