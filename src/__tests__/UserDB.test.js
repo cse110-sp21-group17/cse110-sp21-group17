@@ -31,36 +31,36 @@ describe('Creation of units and deletion of db', function(){
     // Tests goes here...
     //
     
-    it('Tests to see if we can add a note', () =>{
-        creationTool.openUserDB("Test_User");
-        creationTool.createEntry(note1);
+//     it('Tests to see if we can add a note', () =>{
+//         creationTool.openUserDB("Test_User");
+//         creationTool.createEntry(note1);
     
-        // Assertions
-        expect(creationTool.db.notes.count()).resolves.toBe(1);
-    });
-    it('Tests to see if we can add a task', () =>{
-        creationTool.createEntry(task1);
+//         // Assertions
+//         expect(creationTool.db.notes.count()).resolves.toBe(1);
+//     });
+//     it('Tests to see if we can add a task', () =>{
+//         creationTool.createEntry(task1);
     
-        // Assertions
-        expect(creationTool.db.tasks.count()).resolves.toBe(1);
-    });
-    it('Tests to see if we can add an event', () =>{
+//         // Assertions
+//         expect(creationTool.db.tasks.count()).resolves.toBe(1);
+//     });
+//     it('Tests to see if we can add an event', () =>{
 
-        creationTool.createEntry(event1);
+//         creationTool.createEntry(event1);
     
-        // Assertions
-        expect(creationTool.db.events.count()).resolves.toBe(1);
-    });
-    it('Tests to see if we can add a goal', () =>{
+//         // Assertions
+//         expect(creationTool.db.events.count()).resolves.toBe(1);
+//     });
+//     it('Tests to see if we can add a goal', () =>{
 
-        creationTool.createEntry(goal1);
+//         creationTool.createEntry(goal1);
     
-        // Assertions
-        expect(creationTool.db.goals.count()).resolves.toBe(1);
-    });
-    it('Tests to see if we can delete a database', () =>{
+//         // Assertions
+//         expect(creationTool.db.goals.count()).resolves.toBe(1);
+//     });
+//     it('Tests to see if we can delete a database', () =>{
 
-        // Assertions
-        expect(creationTool.deleteUserDB("Test_User")).resolves.toBe(false);
-    });
+//         // Assertions
+//         expect(creationTool.deleteUserDB("Test_User")).resolves.toBe(false);
+//     });
 });
