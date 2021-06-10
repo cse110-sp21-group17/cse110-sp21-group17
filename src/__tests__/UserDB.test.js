@@ -58,9 +58,12 @@ describe("Creation of units and deletion of db", function () {
     });
   });
 
-  afterAll(async () => {
-    //await connection.close();
-    await creationTool.db.close();
+  test("Tests to see if we can delete a note", () => {
+    creationTool.deleteEntry(note1);
+
+    return creationTool.db.notes.count().then((count) => {
+      expect(count).toBe(0);
+    });
   });
 
   test("Tests to see if we can add a task", () => {
@@ -70,6 +73,28 @@ describe("Creation of units and deletion of db", function () {
       expect(count).toBe(1);
     });
   });
+
+  test("Tests to see if we can edit a task", () => {
+    let task1Edited = note1;
+    task1Edited.text_m = "Edited task text";
+    creationTool.editEntry(task1Edited);
+
+    var collection = creationTool.db.tasks.where("entryDate").equals(date1);
+
+    collection.each(function (task) {
+      expect(task.text_m).toMatch(/Edited text/);
+      expect(task.text_m).not.toMatch(/Yaaba Daaba Doo/);
+    });
+  });
+
+  test("Tests to see if we can delete a task", () => {
+    creationTool.deleteEntry(task1);
+
+    return creationTool.db.tasks.count().then((count) => {
+      expect(count).toBe(0);
+    });
+  });
+
   test("Tests to see if we can add a event", () => {
     creationTool.createEntry(event1);
 
@@ -84,9 +109,17 @@ describe("Creation of units and deletion of db", function () {
 
     var collection = creationTool.db.events.where("entryDate").equals(date1);
 
-    collection.each(function (note) {
-      expect(note.text_m).toMatch(/Edited event text/);
-      expect(note.text_m).not.toMatch(/Yaaba Daaba Doo/);
+    collection.each(function (event) {
+      expect(event.text_m).toMatch(/Edited event text/);
+      expect(event.text_m).not.toMatch(/Yaaba Daaba Doo/);
+    });
+  });
+
+  test("Tests to see if we can delete an event", () => {
+    creationTool.deleteEntry(event1);
+
+    return creationTool.db.events.count().then((count) => {
+      expect(count).toBe(0);
     });
   });
 
@@ -98,15 +131,15 @@ describe("Creation of units and deletion of db", function () {
     });
   });
 
-  test("Tests to see if we can edit an event", () => {
-    let event1Edited = event1;
-    event1Edited.text_m = "Edited event text";
-    creationTool.editEntry(event1Edited);
+  test("Tests to see if we can edit a goal", () => {
+    let goal1Edited = goal1;
+    goal1Edited.text_m = "Edited goal text";
+    creationTool.editEntry(goal1Edited);
 
-    var collection = creationTool.db.events.where("entryDate").equals(date1);
+    var collection = creationTool.db.goals.where("entryDate").equals(date1);
 
     collection.each(function (note) {
-      expect(note.text_m).toMatch(/Edited event text/);
+      expect(note.text_m).toMatch(/Edited goal text/);
       expect(note.text_m).not.toMatch(/Yaaba Daaba Doo/);
     });
   });
@@ -117,5 +150,10 @@ describe("Creation of units and deletion of db", function () {
     return Dexie.exists("Test_User").then((exists) => {
       expect(exists).toBe(false);
     });
+  });
+
+  afterAll(async () => {
+    //await connection.close();
+    await creationTool.db.close();
   });
 });
