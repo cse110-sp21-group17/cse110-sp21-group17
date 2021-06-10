@@ -12,7 +12,7 @@
 
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
-import { router } from '../scripts/router.js'; // Router imported so you can use it to manipulate your SPA app here
+import { router } from '../router/router.js'; // Router imported so you can use it to manipulate your SPA app here
 const setState = router.setState;
 
 function fmtDate(d) {
@@ -20,7 +20,7 @@ function fmtDate(d) {
     return d.toLocaleString('en', options);
 }
 
-export var calendar = {
+export let calendar = {
     month: null,
     label: null,
     activeDates: null,
@@ -41,23 +41,23 @@ export var calendar = {
 
     createWeekHeader: function() {
         let week =document.querySelector("main-page").shadowRoot.querySelector(".week_view")
-        var weeks = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-        for (var i = 0; i < weeks.length; i++) {
-            var w = document.createElement('span')
+        let weeks = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+        for (let i = 0; i < weeks.length; i++) {
+            let w = document.createElement('span')
             w.innerHTML = weeks[i]
             week.appendChild(w)
         }
     },
     
     createListeners: function () {
-        var _this = this
+        let _this = this
         let weekButton = document.querySelector("main-page").shadowRoot.querySelector('.Week_btn');
         let monthButton = document.querySelector("main-page").shadowRoot.querySelector('.Month_btn');
         
         weekButton.addEventListener('click', function () {
             console.log("click weekButton");
             _this.clearCalendar()
-            var nextMonth = _this.date.getMonth() + 1
+            let nextMonth = _this.date.getMonth() + 1
             _this.createWeek()
 
             weekButton.className = "Week_btn cal-selected";
@@ -67,7 +67,7 @@ export var calendar = {
         monthButton.addEventListener('click', function () {
             console.log("click monthButton");
             _this.clearCalendar()
-            var curMonth = _this.date.getMonth()
+            let curMonth = _this.date.getMonth()
             _this.createMonth()
 
             weekButton.className = "Week_btn";
@@ -76,9 +76,9 @@ export var calendar = {
     },
     
     createDay: function (num, day, year, isMonth) {
-        var newDay = document.createElement('div')
-        var dateEl = document.createElement('div')
-        var detailEl = document.createElement('div')
+        let newDay = document.createElement('div')
+        let dateEl = document.createElement('div')
+        let detailEl = document.createElement('div')
 
         dateEl.innerHTML = num
         dateEl.classList.add('calender-date--label')
@@ -114,7 +114,7 @@ export var calendar = {
         }
         
         if (this.date.toString() === this.todaysDate.toString()) { // current day
-            var circleEl = document.createElement('div')
+            let circleEl = document.createElement('div')
             circleEl.classList.add('calender-date--today')
             newDay.appendChild(circleEl)
 
@@ -136,12 +136,12 @@ export var calendar = {
     },
     
     dateClicked: function () {
-        var _this = this
+        let _this = this
         this.activeDates = document.querySelector("main-page").shadowRoot.querySelectorAll(
             '[data-calendar-status="active"]'
         )
 
-        for (var i = 0; i < this.activeDates.length; i++) {
+        for (let i = 0; i < this.activeDates.length; i++) {
             this.activeDates[i].addEventListener('click', function (event) {
                 console.log("tap one active date " + this.dataset.calendarDate)
                 alert("Create new note on " + this.dataset.calendarDate);
@@ -155,7 +155,7 @@ export var calendar = {
     },
     
     createMonth: function () {
-        var currentMonth = this.date.getMonth()
+        let currentMonth = this.date.getMonth()
         this.date.setDate(1)
 
         while (this.date.getMonth() === currentMonth ) {
@@ -226,7 +226,7 @@ export var calendar = {
     },
     
     removeActiveClass: function () {
-        for (var i = 0; i < this.activeDates.length; i++) {
+        for (let i = 0; i < this.activeDates.length; i++) {
             this.activeDates[i].classList.remove('calender-date--selected')
         }
     }

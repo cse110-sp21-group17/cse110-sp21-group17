@@ -1,4 +1,4 @@
-import { openUserDB, getGoals, getDatedEntries } from "../src/userDB.js";
+import { openUserDB, getGoals, getDatedEntries } from "../storage/userDB.js";
 
 export const router = {};
 const body = document.querySelector("body");
@@ -31,7 +31,7 @@ router.setState = function(state, back) {
         if ("username" in state) {
             router.username = state.username;
         }
-        var username = router.username
+        let username = router.username
 
         // remove the createPage stuff
         document.querySelectorAll("create-page").forEach(x => x.remove());
@@ -47,7 +47,7 @@ router.setState = function(state, back) {
         // goal list to create plan view to update the right bottom view of the Main page
         getGoals().then(goals => {
             console.log(goals);
-            for (var i = 0; i < goals.length; i++) {
+            for (let i = 0; i < goals.length; i++) {
                 let newPlan = document.createElement('plan-node');
                 console.log("new goal " + goals[i].g.description);
 
@@ -66,7 +66,7 @@ router.setState = function(state, back) {
         // populate record view
         getDatedEntries()
             .then(d => {
-                for (var date in d) {
+                for (let date in d) {
                     let newPost = document.createElement('record-node');
                     newPost.node = { date: date, entries: d[date] };
                     document.querySelector("main-page").shadowRoot.querySelector('.record_view').appendChild(newPost);
@@ -77,7 +77,12 @@ router.setState = function(state, back) {
         getDatedEntries()
             .then(d => {
                 Object.keys(d).map(function(key, index) {
-                    d[key] = d[key].length + " entries";
+                    //d[key] = d[key].length + " entries";
+                    if(d[key].length > 1) {
+                        d[key] = d[key][0].t.description + '\n' + " and " + (d[key].length - 1) + " more";
+                    } else {
+                        d[key] = d[key][0].t.description;
+                    }
                 });
 
                 mainPage.calender = d;

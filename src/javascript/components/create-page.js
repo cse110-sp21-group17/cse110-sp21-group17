@@ -1,7 +1,7 @@
 // <plan-Node> custom web component
-import { Goal, Task } from "../src/object_files/objects.js";
-import { createEntry, getGoals} from "../src/userDB.js";
-import { router } from '../scripts/router.js'; // Router imported so you can use it to manipulate your SPA app here
+import { Goal, Task } from "../classes/entry_classes.js";
+import { createEntry } from "../storage/userDB.js";
+import { router } from '../router/router.js'; // Router imported so you can use it to manipulate your SPA app here
 const setState = router.setState;
 
 class CreatePage extends HTMLElement {
@@ -402,16 +402,16 @@ class CreatePage extends HTMLElement {
     }
 
     setUpSubmitButton() {
-        var submit_button = this.shadowRoot.querySelector(".submit-button");
-        var goal_view =  this.shadowRoot.querySelector(".goal-view");
-        var task_view =  this.shadowRoot.querySelector(".task-view");
+        let submit_button = this.shadowRoot.querySelector(".submit-button");
+        let goal_view =  this.shadowRoot.querySelector(".goal-view");
+        let task_view =  this.shadowRoot.querySelector(".task-view");
 
-        var title_label =  this.shadowRoot.querySelector(".title-input");
-        var select_date  = this.shadowRoot.querySelector(".choose-date");
+        let title_label =  this.shadowRoot.querySelector(".title-input");
+        let select_date  = this.shadowRoot.querySelector(".choose-date");
 
-        var hint_label = this.shadowRoot.querySelector(".hint-label");
+        let hint_label = this.shadowRoot.querySelector(".hint-label");
         hint_label.style.height = "0px";
-        var _this = this
+        let _this = this
 
         submit_button.addEventListener('click', function () {
             if (goal_view.hidden == false) { // current in the create goal view
@@ -435,10 +435,10 @@ class CreatePage extends HTMLElement {
                     hint_label.style.height = "0px";
                 }
 
-                var task_views = _this.shadowRoot.querySelectorAll(".add-task-view")
-                for (var i = 0; i < task_views.length; i++) {
-                    var task_title = task_views[i].querySelector(".title-input")  // task-title
-                    var task_date = task_views[i].querySelector(".choose-date-task")//task-date
+                let task_views = _this.shadowRoot.querySelectorAll(".add-task-view")
+                for (let i = 0; i < task_views.length; i++) {
+                    let task_title = task_views[i].querySelector(".title-input")  // task-title
+                    let task_date = task_views[i].querySelector(".choose-date-task")//task-date
                     if (task_title.value.length > 0 && task_date.value.length > 0) {
                         // add task to this goal to submit
                         console.log("Task name: " + task_title.value + " task date: " + task_date.value)
@@ -447,7 +447,7 @@ class CreatePage extends HTMLElement {
                     }
                 }
 
-                var node_text = _this.shadowRoot.querySelector(".note-area");
+                let node_text = _this.shadowRoot.querySelector(".note-area");
                 console.log("node for this goal and tasks are " + node_text.value);
 
                 createEntry(new Goal(title_label.value, "", new Date(select_date.value)));
@@ -478,18 +478,18 @@ class CreatePage extends HTMLElement {
                 let goal = _this.shadowRoot.querySelector('.choose-goal-list');
                 console.log("Task name:" + title_label.value + ", Task date:" + select_date.value )
 
-                var subtask_views = _this.shadowRoot.querySelectorAll(".subtask-view")
-                for (var i = 0; i < subtask_views.length; i++) {
-                    var task_title = subtask_views[i].querySelector(".title-input")  // task-title
-                    var task_date = subtask_views[i].querySelector(".choose-date-subtask")//task-date
+                let subtask_views = _this.shadowRoot.querySelectorAll(".subtask-view")
+                for (let i = 0; i < subtask_views.length; i++) {
+                    let task_title = subtask_views[i].querySelector(".title-input")  // task-title
+                    let task_date = subtask_views[i].querySelector(".choose-date-subtask")//task-date
                     if (task_title.value.length > 0 && task_date.value.length > 0) {
                         // add task to this goal to submit
                         console.log("Sub Task name: " + task_title.value + "Sub task date: " + task_date.value)
                     }
                 }
-                var options = _this.shadowRoot.querySelector('.choose-goal-list')
+                let options = _this.shadowRoot.querySelector('.choose-goal-list')
                 console.log("Goal options is " + options.value);
-                var node_text = _this.shadowRoot.querySelector(".note-area");
+                let node_text = _this.shadowRoot.querySelector(".note-area");
                 console.log("node for this goal and tasks are " + node_text.value);
 
                 createEntry(new Task(title_label.value, "", new Date(select_date.value), goal.value ));
@@ -504,16 +504,16 @@ class CreatePage extends HTMLElement {
     }
     
     setupTaskAndGoalButton() {
-        var goal_button = this.shadowRoot.querySelector(".choose-goal");
-        var task_button = this.shadowRoot.querySelector(".choose-task");
-        var note_button = this.shadowRoot.querySelector(".choose-node");
-        var goal_view =  this.shadowRoot.querySelector(".goal-view");
-        var task_view =  this.shadowRoot.querySelector(".task-view");
+        let goal_button = this.shadowRoot.querySelector(".choose-goal");
+        let task_button = this.shadowRoot.querySelector(".choose-task");
+        let note_button = this.shadowRoot.querySelector(".choose-node");
+        let goal_view =  this.shadowRoot.querySelector(".goal-view");
+        let task_view =  this.shadowRoot.querySelector(".task-view");
 
-        var title_label =  this.shadowRoot.querySelector(".title-input");
-        var select_date  = this.shadowRoot.querySelector(".choose-date");
+        let title_label =  this.shadowRoot.querySelector(".title-input");
+        let select_date  = this.shadowRoot.querySelector(".choose-date");
 
-        var _this = this
+        let _this = this
 
         goal_button.addEventListener('click', function () {
             goal_button.style.backgroundColor = "orange";
@@ -551,10 +551,10 @@ class CreatePage extends HTMLElement {
     }
 
     setupAddTaskButton() {
-        var goal_create_button = this.shadowRoot.querySelector(".create-goal");  
-        var task_create_button = this.shadowRoot.querySelector(".create-task");  
+        let goal_create_button = this.shadowRoot.querySelector(".create-goal");  
+        let task_create_button = this.shadowRoot.querySelector(".create-task");  
 
-        var _this = this
+        let _this = this
 
         this.shadowRoot.querySelector(".add-task-view").querySelector('.task-delete').hidden = true;
         this.shadowRoot.querySelector(".subtask-view").querySelector('.subtask-delete').hidden = true;
@@ -563,11 +563,11 @@ class CreatePage extends HTMLElement {
         // create task for goal
         goal_create_button.addEventListener('click', function () {
             console.log("create task for goal");
-            var goal_view = _this.shadowRoot.querySelector(".goal-view");
-            var create_task_view =  _this.shadowRoot.querySelector(".add-task-view").cloneNode(true);
+            let goal_view = _this.shadowRoot.querySelector(".goal-view");
+            let create_task_view =  _this.shadowRoot.querySelector(".add-task-view").cloneNode(true);
             create_task_view.classList.add('add-task-view')
-            var task_title = create_task_view.querySelector(".title-input")  // task-title
-            var task_date = create_task_view.querySelector(".choose-date-task")//task-date
+            let task_title = create_task_view.querySelector(".title-input")  // task-title
+            let task_date = create_task_view.querySelector(".choose-date-task")//task-date
 
             task_title.value = "";
             task_date.value = "";
@@ -577,7 +577,7 @@ class CreatePage extends HTMLElement {
 
             
 
-            var delete_button = create_task_view.querySelector('.task-delete')
+            let delete_button = create_task_view.querySelector('.task-delete')
             delete_button.addEventListener('click', function() {
                 create_task_view.remove();
             })
@@ -586,17 +586,17 @@ class CreatePage extends HTMLElement {
         // create subtask for goal
         task_create_button .addEventListener('click', function () {
             console.log("create subtask for task");
-            var task_view = _this.shadowRoot.querySelector(".task-view");
-            var option_choose = _this.shadowRoot.querySelector(".choose-goal-title");
+            let task_view = _this.shadowRoot.querySelector(".task-view");
+            let option_choose = _this.shadowRoot.querySelector(".choose-goal-title");
 
-            var create_sub_task_view =  _this.shadowRoot.querySelector(".subtask-view").cloneNode(true);
+            let create_sub_task_view =  _this.shadowRoot.querySelector(".subtask-view").cloneNode(true);
             create_sub_task_view.classList.add('subtask-view')
 
             task_view.insertBefore(create_sub_task_view, option_choose);
 
 
             create_sub_task_view.querySelector('.subtask-delete').hidden = false;
-            var delete_button = create_sub_task_view.querySelector('.subtask-delete')
+            let delete_button = create_sub_task_view.querySelector('.subtask-delete')
             delete_button.addEventListener('click', function() {
                 create_sub_task_view.remove();
 
@@ -607,9 +607,9 @@ class CreatePage extends HTMLElement {
     }
 
     addGoalOptions(options) {
-        var select = this.shadowRoot.querySelector('.choose-goal-list')
-        for (var i = 0; i<options.length; i++){
-            var opt = document.createElement('option');
+        let select = this.shadowRoot.querySelector('.choose-goal-list')
+        for (let i = 0; i<options.length; i++){
+            let opt = document.createElement('option');
             opt.value = i+1;
             opt.innerHTML = options[i];
             select.appendChild(opt);
