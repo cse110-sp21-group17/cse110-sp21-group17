@@ -2,9 +2,9 @@ import { Note, Task, Subtask, Event, Goal, Entry } from './object_files/objects.
 import Dexie from 'dexie'
 require("fake-indexeddb/auto");
 
-export var db; //Global database variable
+export let db; //Global database variable
 
-var groupBy = function(xs, key) {
+let groupBy = function(xs, key) {
     return xs.reduce(function(rv, x) {
         (rv[x[key]] = rv[x[key]] || []).push(x);
         return rv;
@@ -148,7 +148,7 @@ export function completeTask(toComplete){
 /**
  * Returns all entries on a date.
  * @param {Date} dateIndex - The date object you want to access 
- * @returns {Array}  Array of arrays of Tasks, Subtasks, Notes, Events, Goals
+ * @returns {Array[]}  Array of arrays of Tasks, Subtasks, Notes, Events, Goals
  */
 export async function getDateEntries(dateIndex) { //Get all of the entries on a given date
     let taskArr = await db.tasks.where("entryDate").equals(dateIndex).toArray();
@@ -167,10 +167,10 @@ function fmtDate(d) {
 
 // get all dated entries?
 export async function getDatedEntries() {
-    var res = {};
+    let res = {};
     
     let taskArr = await db.tasks.toArray();
-    for (var i = 0; i < taskArr.length; i++) {
+    for (let i = 0; i < taskArr.length; i++) {
         let sts = await getSubtasks(taskArr[i]);
 
         console.log(taskArr[i]);
@@ -186,7 +186,7 @@ export async function getDatedEntries() {
     let noteArr = await db.notes.toArray();
     let eventArr = await db.events.toArray();
 
-    for (var i = 0; i < noteArr.length; i++) {
+    for (let i = 0; i < noteArr.length; i++) {
         let key = fmtDate(noteArr[i].entryDate_m);
         if (!(key in res)) {
             res[key] = []
@@ -195,7 +195,7 @@ export async function getDatedEntries() {
         res[key].push(noteArr[i]);
     }
 
-    for (var i = 0; i < eventArr.length; i++) {
+    for (let i = 0; i < eventArr.length; i++) {
         let key = fmtDate(eventArr[i].entryDate_m);
         if (!(key in res)) {
             res[key] = []
@@ -210,7 +210,7 @@ export async function getDatedEntries() {
 export async function getGoals() {
     let gs = await db.goals.toArray();
     let ngs = [];
-    for (var i = 0; i < gs.length; i++) {
+    for (let i = 0; i < gs.length; i++) {
         let ts = await getGoalTasks(gs[i]);
         ngs.push({ g: gs[i], ts: ts });
     }
@@ -220,7 +220,7 @@ export async function getGoals() {
 /**
  * Returns all tasks for a goal
  * @param {Goal} goalIndex
- * @returns {TaskArray} A task array containing all the tasks associated with the input goal
+ * @returns {Task[]} A task array containing all the tasks associated with the input goal
  */
 export async function getGoalTasks(goal){ //Get all of the entries (which are only tasks and their subtasks) of a given goal
     let taskArr = await db.tasks.where("goal").equals(goal.description).toArray();
