@@ -9,12 +9,14 @@ let groupBy = function(xs, key) {
     }, {});
 };
 
+let sortObject = o => Object.keys(o).sort().reduce((r, k) => (r[k] = o[k], r), {})
+
 /**
  * Opens a database if it exists, creates one if it doesn't 
  * @param {string} username - Will be the name of the database
  * @returns {void} Nothing
  */
-export async function openUserDB(username){   //This function opens a database. If it doesn't already exist, it creates one.
+export function openUserDB(username){   //This function opens a database. If it doesn't already exist, it creates one.
     db = new Dexie(username);
     db.version(1).stores({
         tasks: 'id++, entryDate, goal, subtaskids',
@@ -29,7 +31,7 @@ export async function openUserDB(username){   //This function opens a database. 
     db.events.mapToClass(Event);
     db.goals.mapToClass(Goal);
     
-    return Dexie.exists(username).then(function (exists) {return exists});
+    return;
 }   //Once this is done, we retun nothing but db stores the current user database so we can access its contents and only its contents
 
 /**
@@ -38,7 +40,6 @@ export async function openUserDB(username){   //This function opens a database. 
  * @return {boolean} If the database was deleted or not
  */
 export async function deleteUserDB(username){
-    
     Dexie.delete(username);
     let exist = await Dexie.exists(username);
     return exist;
@@ -158,9 +159,8 @@ export async function getDateEntries(dateIndex) { //Get all of the entries on a 
     return [taskArr, subtaskArr, noteArr, eventArr, goalArr]
 }
 
-function fmtDate(d) {
-    let options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-    return d.toLocaleString('en', options);
+function isoDate(d) {
+    return d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
 }
 
 // get all dated entries?
@@ -173,7 +173,7 @@ export async function getDatedEntries() {
 
         console.log(taskArr[i]);
 
-        let key = fmtDate(taskArr[i].entryDate_m);
+        let key = isoDate(taskArr[i].entryDate_m);
         if (!(key in res)) {
             res[key] = []
         }
@@ -185,7 +185,7 @@ export async function getDatedEntries() {
     let eventArr = await db.events.toArray();
 
     for (let i = 0; i < noteArr.length; i++) {
-        let key = fmtDate(noteArr[i].entryDate_m);
+        let key = isoDate(noteArr[i].entryDate_m);
         if (!(key in res)) {
             res[key] = []
         }
@@ -194,7 +194,7 @@ export async function getDatedEntries() {
     }
 
     for (let i = 0; i < eventArr.length; i++) {
-        let key = fmtDate(eventArr[i].entryDate_m);
+        let key = isoDate(eventArr[i].entryDate_m);
         if (!(key in res)) {
             res[key] = []
         }
@@ -202,7 +202,7 @@ export async function getDatedEntries() {
         res[key].push(eventArr[i]);
     }
 
-    return res;
+    return sortObject(res);
 }
 
 export async function getGoals() {
