@@ -112,18 +112,18 @@ export function deleteEntry(toDelete){ //
 }
 
 /**
- * Sets the complete flag
- * @param {Task|Subtask} toComplete - Changes the toComplete flag to true
- * @return {Task|Subtask} Returns the object with the toComplete flag set to true
+ * Flips the complete flag
+ * @param {Task|Subtask} toComplete - Changes the toComplete flag to true if false, and false if true.
+ * @return {Task|Subtask} Returns the object with the toComplete flag set to its new value.
  */
 
 export function completeTask(toComplete){
     if(toComplete instanceof Task){
-        toComplete.isCompleted = true;
+        toComplete.isCompleted = !toComplete.isCompleted;
         db.tasks.update(toComplete.id, toComplete);
     }
     else if(toComplete instanceof Subtask){
-        toComplete.isCompleted = true;
+        toComplete.isCompleted = !toComplete.isCompleted;
         db.subtask.update(toComplete.id, toComplete);
     }
     return toComplete;
