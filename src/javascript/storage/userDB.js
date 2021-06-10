@@ -1,6 +1,4 @@
 import { Note, Task, Subtask, Event, Goal, Entry } from '../classes/entry_classes.js';
-import Dexie from 'dexie'
-require("fake-indexeddb/auto");
 
 export let db; //Global database variable
 

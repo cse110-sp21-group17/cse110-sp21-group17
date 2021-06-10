@@ -1,5 +1,5 @@
 import { calendar } from './calendar.js';
-import { router } from '../scripts/router.js'; // Router imported so you can use it to manipulate your SPA app here
+import { router } from '../router/router.js'; // Router imported so you can use it to manipulate your SPA app here
 const setState = router.setState;
 
 class MainPage extends HTMLElement {

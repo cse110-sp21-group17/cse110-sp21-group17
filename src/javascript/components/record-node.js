@@ -1,4 +1,4 @@
-import { Task, Note, Event } from "../src/object_files/objects.js";
+import { Task, Note, Event } from "../classes/entry_classes.js";
 
 // <record-node> custom web component
 class RecordNode extends HTMLElement {
