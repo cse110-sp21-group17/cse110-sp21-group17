@@ -77,7 +77,12 @@ router.setState = function(state, back) {
         getDatedEntries()
             .then(d => {
                 Object.keys(d).map(function(key, index) {
-                    d[key] = d[key].length + " entries";
+                    //d[key] = d[key].length + " entries";
+                    if(d[key].length > 1) {
+                        d[key] = d[key][0].t.description + '\n' + " and " + (d[key].length - 1) + " more";
+                    } else {
+                        d[key] = d[key][0].t.description;
+                    }
                 });
 
                 mainPage.calender = d;
