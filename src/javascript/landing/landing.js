@@ -1,8 +1,8 @@
+import { router } from '../router/router.js'; // Router imported so you can use it to manipulate your SPA app here
 
+const setState = router.setState;
 const nameInput = document.getElementsByClassName("userName")[0];
 const submitButton = document.getElementsByClassName("submit")[0];
-import { router } from './router.js'; // Router imported so you can use it to manipulate your SPA app here
-const setState = router.setState;
 
 //let fields = [nameInput, emailInput, passwordInput];
 nameInput.oninput = e =>  {

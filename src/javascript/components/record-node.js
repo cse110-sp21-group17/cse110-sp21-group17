@@ -114,7 +114,7 @@ class RecordNode extends HTMLElement {
     // Just like the entry-page  Update the node by the node-list ----- on router.js file's  "gotoPage" function state "mainPage"
     set node(node) {
         this.shadowRoot.querySelector('.node-date').innerText = node.date;
-        for (var entry of node.entries) {
+        for (let entry of node.entries) {
             if (entry instanceof Note) {
                 // handle like note
                 let li = document.createElement("li");
