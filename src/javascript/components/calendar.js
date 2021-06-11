@@ -146,8 +146,8 @@ export let calendar = {
                 console.log("tap one active date " + this.dataset.calendarDate)
                 alert("Create new note on " + this.dataset.calendarDate);
 
-                setState("createPage" + this.dataset.calendarDate.toString());
-
+                //setState("createPage" + this.dataset.calendarDate.toString());
+                setState({state: 'create'});
                 _this.removeActiveClass()
                 this.classList.add('calender-date--selected')
             })

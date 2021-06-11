@@ -228,8 +228,9 @@ export class Entry {
 
 export class Note extends Entry {
     id;
-    constructor(text, entryDate = new Date()) {
-        super(text, entryDate);
+    constructor(text = "" ,entryDate = new Date()) {
+        super(text , entryDate);
+        //this.description = description;
     }
 
 }

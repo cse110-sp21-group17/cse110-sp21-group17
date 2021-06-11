@@ -31,6 +31,7 @@ function allFilled() {
 submitButton.onclick = e => {
     let name = nameInput.value;
     // submit to backend --- once success - navigate to main page
+    //openUserDB(name);
 
     setState({ state: 'main', username: name });
 }

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: javascript/storage/userDB_testing.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: javascript/storage/userDB_testing.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Note, Task, Subtask, Event, Goal, Entry } from '../classes/entry_classes.js';
+import { Dexie } from 'dexie';
+
+export let db; //Global database variable
+
+let groupBy = function(xs, key) {
+    return xs.reduce(function(rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
+    }, {});
+};
+
+let sortObject = o => Object.keys(o).sort().reduce((r, k) => (r[k] = o[k], r), {})
+
+/**
+ * Opens a database if it exists, creates one if it doesn't 
+ * @param {string} username - Will be the name of the database
+ * @returns {void} Nothing
+ */
+export function openUserDB(username){   //This function opens a database. If it doesn't already exist, it creates one.
+    db = new Dexie(username);
+    db.version(1).stores({
+        tasks: 'id++, entryDate, goal, subtaskids',
+        subtasks: 'id++',
+        notes: 'id++, entryDate',
+        events: 'id++, entryDate',
+        goals: 'description, entryDate'
+    });
+    db.tasks.mapToClass(Task);
+    db.subtasks.mapToClass(Subtask);
+    db.notes.mapToClass(Note);
+    db.events.mapToClass(Event);
+    db.goals.mapToClass(Goal);
+    
+    return;
+}   //Once this is done, we retun nothing but db stores the current user database so we can access its contents and only its contents
+
+/**
+ * Deletes the database if it exists, does nothing if it doesn't
+ * @param {string} username - Name of the database
+ * @return {boolean} If the database was deleted or not
+ */
+export async function deleteUserDB(username){
+    Dexie.delete(username);
+    let exist = await Dexie.exists(username);
+    return exist;
+}
+
+/**
+ * Stores entries, excluding subnotes
+ * @param {Task|Note|Event|Goal} toStore - Will be the object stored
+ * @returns {Entry} - The object that was stored
+ */
+export async function createEntry(toStore) { //This function takes a storable object and stores it in the appropriate table
+    if(toStore instanceof Task){
+        let temp = await db.tasks.put(toStore); //Store in DB and get ID
+        toStore.id = temp; //Append ID to object
+        db.tasks.update(temp, toStore); //Udpate object in DB
+    }
+    else if(toStore instanceof Note){
+        let temp = await db.notes.put(toStore);
+        toStore.id = temp;
+        db.notes.update(temp, toStore);
+    }
+    else if(toStore instanceof Event){
+        let temp = await db.events.put(toStore);
+        toStore.id = temp;
+        db.events.update(temp, toStore);
+    }
+    else if(toStore instanceof Goal){
+        let temp = await db.goals.put(toStore);
+        toStore.id = temp;
+        db.goals.update(temp, toStore);
+    }
+    return toStore; //Returns the object for easy rendering after creation
+}
+
+/**
+ * Edits entry content using a new object
+ * @param {Entry} toEdit 
+ * @returns {void} Nothing
+ */
+export function editEntry(toEdit){
+    if(toEdit instanceof Task){
+        db.tasks.update(toEdit.id, toEdit);
+    }
+    else if(toEdit instanceof Subtask){
+        db.subtasks.update(toEdit.id, toEdit);
+    }
+    else if(toEdit instanceof Note){
+        db.notes.update(toEdit.id, toEdit);
+    }
+    else if(toEdit instanceof Event){
+        db.events.update(toEdit.id, toEdit);
+    }
+    else if(toEdit instanceof Goal){
+        db.goals.update(toEdit.id, toEdit);
+    }
+    return toEdit;
+}
+
+/**
+ * This function takes an existing object in the table and deletes it. If it doesn't exist, it doesn't delete anything.
+ * @param {Entry} toDelete 
+ * @returns {void} Nothing
+ */
+export function deleteEntry(toDelete){ //
+    if(toDelete instanceof Task){
+        db.tasks.delete(toDelete.id);
+        toDelete.subtaskIds.forEach(curSubtaskId => deleteEntry(db.subtasks.get(curSubTaskId)));
+    }
+    else if(toDelete instanceof Subtask){
+        let editTask = db.tasks.get(toStore.parentId);
+        let index = editTask.subtaskIds.indexOf(toStore.id);
+        editTask.subtaskIds.splice(index, 1);
+        db.tasks.update(editTask.id, editTask);
+        db.subtasks.delete(toDelete.id);
+    }
+    else if(toDelete instanceof Note){
+        db.notes.delete(toDelete.id);
+    }
+    else if(toDelete instanceof Event){
+        db.events.delete(toDelete.id);
+    }
+    else if(toDelete instanceof Goal){
+        db.goals.delete(toDelete.id);
+    }
+}
+
+/**
+ * Flips the complete flag
+ * @param {Task|Subtask} toComplete - Changes the toComplete flag to true if false, and false if true.
+ * @return {Task|Subtask} Returns the object with the toComplete flag set to its new value.
+ */
+
+export function completeTask(toComplete){
+    if(toComplete instanceof Task){
+        toComplete.isCompleted = !toComplete.isCompleted;
+        db.tasks.update(toComplete.id, toComplete);
+    }
+    else if(toComplete instanceof Subtask){
+        toComplete.isCompleted = !toComplete.isCompleted;
+        db.subtask.update(toComplete.id, toComplete);
+    }
+    return toComplete;
+}
+
+/**
+ * Returns all entries on a date.
+ * @param {Date} dateIndex - The date object you want to access 
+ * @returns {Array[]}  Array of arrays of Tasks, Subtasks, Notes, Events, Goals
+ */
+export async function getDateEntries(dateIndex) { //Get all of the entries on a given date
+    let taskArr = await db.tasks.where("entryDate").equals(dateIndex).toArray();
+    let subtaskArr = taskArr.forEach(curTask => getSubtasks(curTask));
+    let noteArr = await db.notes.where("entryDate").equals(dateIndex).toArray();
+    let eventArr = await db.events.where("entryDate").equals(dateIndex).toArray();
+    let goalArr = await db.goals.where("entryDate").equals(dateIndex).toArray();
+
+    return [taskArr, subtaskArr, noteArr, eventArr, goalArr]
+}
+
+function isoDate(d) {
+    return d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+}
+
+// get all dated entries?
+export async function getDatedEntries() {
+    let res = {};
+    
+    let taskArr = await db.tasks.toArray();
+    for (let i = 0; i &lt; taskArr.length; i++) {
+        let sts = await getSubtasks(taskArr[i]);
+
+        console.log(taskArr[i]);
+
+        let key = isoDate(taskArr[i].entryDate_m);
+        if (!(key in res)) {
+            res[key] = []
+        }
+
+        res[key].push({ t: taskArr[i], sts: sts });
+    }
+
+    let noteArr = await db.notes.toArray();
+    let eventArr = await db.events.toArray();
+
+    for (let i = 0; i &lt; noteArr.length; i++) {
+        let key = isoDate(noteArr[i].entryDate_m);
+        if (!(key in res)) {
+            res[key] = []
+        }
+
+        res[key].push(noteArr[i]);
+    }
+
+    for (let i = 0; i &lt; eventArr.length; i++) {
+        let key = isoDate(eventArr[i].entryDate_m);
+        if (!(key in res)) {
+            res[key] = []
+        }
+
+        res[key].push(eventArr[i]);
+    }
+
+    return sortObject(res);
+}
+
+export async function getGoals() {
+    let gs = await db.goals.toArray();
+    let ngs = [];
+    for (let i = 0; i &lt; gs.length; i++) {
+        let ts = await getGoalTasks(gs[i]);
+        ngs.push({ g: gs[i], ts: ts });
+    }
+    return ngs;
+}
+
+/**
+ * Returns all tasks for a goal
+ * @param {Goal} goalIndex
+ * @returns {Task[]} A task array containing all the tasks associated with the input goal
+ */
+export async function getGoalTasks(goal){ //Get all of the entries (which are only tasks and their subtasks) of a given goal
+    let taskArr = await db.tasks.where("goal").equals(goal.description).toArray();
+    return taskArr;
+}
+
+/**
+ * Adds a subtask to storage, updates its parent, and returns them both, updated 
+ * @param {Task} taskToEdit
+ * @param {Subtask} subToAdd
+ * @returns {Array} Returns an array with the first element as an updated task and the second as the updated subtask
+ */
+export async function addSubtask(taskToEdit, subToAdd){ //Add subtask to a task
+    let temp = await db.subtasks.put(subToAdd);
+    subToAdd.id = temp;
+    subToAdd.parentID = taskToEdit.id;
+    db.subtasks.update(temp, sutToAdd);
+    taskToEdit.subtaskIds.push(temp);
+    db.tasks.update(taskToEdit.id, taskToEdit);
+    return [taskToEdit, subToAdd];
+}
+
+/**
+ * Gets all the subtasks of a given task
+ * @param {Task} taskIndex - Task we want to access
+ * @returns {Subtasks[]} All the subtasks of a given task
+ */
+export async function getSubtasks(taskIndex){ //Get all subtasks of a task
+    let subtaskArr = [];
+    taskIndex.subtaskIds.forEach(async id => await subtaskArr.push(db.subtasks.get(id)));
+    return subtaskArr;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#completeTask">completeTask</a></li><li><a href="global.html#createEntry">createEntry</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteUserDB">deleteUserDB</a></li><li><a href="global.html#editEntry">editEntry</a></li><li><a href="global.html#getDateEntries">getDateEntries</a></li><li><a href="global.html#getGoalTasks">getGoalTasks</a></li><li><a href="global.html#getSubtasks">getSubtasks</a></li><li><a href="global.html#mult">mult</a></li><li><a href="global.html#openUserDB">openUserDB</a></li><li><a href="global.html#power">power</a></li><li><a href="global.html#sum">sum</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Jun 11 2021 01:38:28 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

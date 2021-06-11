@@ -25,6 +25,7 @@ class MainPage extends HTMLElement {
             width:30px;
             margin-left:30px;
             z-index: 100;
+            cursor: pointer;
         }
 
         .page-title {
@@ -51,6 +52,14 @@ class MainPage extends HTMLElement {
             color: #888;
         }
         
+        .main-page .record_view .create-button{
+            z-index:100;
+            position:absolute;
+            cursor:pointer;
+            top: 87vh;
+            left: 42vw;
+        }
+
         .main-page .right_view {
             align-self: top right;
             width: 50%;
@@ -253,7 +262,8 @@ class MainPage extends HTMLElement {
         <div class="page-title">Chimplanzee</div>
         <div class="main-page">
             <div class="record_view"> 
-                <p class="sec-label">RECORD</p>
+                <p class="record_label">RECORD</p>
+                <img class="create-button" src="./src/images/create.png" height="50px" width=50px></img>
             </div>
             <div class="sep"></div>
             <div class="right_view">
@@ -312,6 +322,12 @@ class MainPage extends HTMLElement {
         this.shadowRoot.querySelector('.plan_create').addEventListener('click', function () {
             setState({ state: 'create' });
         })
+
+        this.shadowRoot.querySelector('.create-button').addEventListener('click', () => {
+            setState({state: 'create'});
+            console.log("clicked");
+        })
+    
         
     }
 }
