@@ -14,7 +14,7 @@ class CreatePage extends HTMLElement {
           .create-page {
             width: 100%;
             height: 100%;
-            background-color: rgb(202, 235, 204);
+            background-color: red;
         }
 
         .create-title {
@@ -34,6 +34,9 @@ class CreatePage extends HTMLElement {
             margin-left:10%;
             width:80%;
             height:40px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
         }
 
         .choose-area button {
@@ -52,11 +55,14 @@ class CreatePage extends HTMLElement {
           color: rgb(157, 201, 160);
         }
 
-        .choose-area button:hover{background-color:rgb(157, 201, 160);}
+        .choose-area button:hover{
+          filter: brightness(80%);
+          background-color: rgb(157, 201, 160);
+        }
 
         .title-input {
             margin-top:3%;
-            margin-left: 12%;
+            margin-left: 30%;
             width: 40%;
             height: 40px;
             border: 1.5px solid gray;
@@ -67,7 +73,7 @@ class CreatePage extends HTMLElement {
 
         .date-pick{
           margin-top:3%;
-          margin-left: 12%;
+          text-align:center;
         }
 
         .create-goal {
@@ -109,7 +115,7 @@ class CreatePage extends HTMLElement {
         border: 1.5px solid gray;
         border-radius: 15px;
         outline: none;
-        margin-left:10%;
+        margin-left:20%;
         width:60%;
       }
 
@@ -157,7 +163,7 @@ class CreatePage extends HTMLElement {
         z-index: -1;
         border: 1.5px solid gray;
         border-radius: 15px;
-        margin-left:10%;
+        margin-left:20%;
         width:60%;
       }
       .task-view .create-task {
@@ -235,6 +241,7 @@ class CreatePage extends HTMLElement {
       height:20px;
     }
       .note-title {
+        display: none;
         margin-left: 12%;
       }
       .choose-goal-title{
@@ -293,6 +300,7 @@ class CreatePage extends HTMLElement {
             <button class="choose-goal" >Goal</button>
             <button class="choose-task">Task</button>
             <button  class="choose-node">Note</button>
+            <button class="choose-event">Event</button>
          </div>
          <input class="title-input" placeholder="enter the title here"></input>
          <form class="date-pick">
@@ -405,7 +413,7 @@ class CreatePage extends HTMLElement {
         let submit_button = this.shadowRoot.querySelector(".submit-button");
         let goal_view =  this.shadowRoot.querySelector(".goal-view");
         let task_view =  this.shadowRoot.querySelector(".task-view");
-
+        let note_button = this.shadowRoot.querySelector(".choose-node");
         let title_label =  this.shadowRoot.querySelector(".title-input");
         let select_date  = this.shadowRoot.querySelector(".choose-date");
 
@@ -496,7 +504,7 @@ class CreatePage extends HTMLElement {
                 // window.history.back();
                 setState({ state: 'main' });
             }
-            else{
+            else if (note_button.style.backgroundColor == "orange"){
               if (title_label.value.length ==0) {
                 hint_label.style.height = "20px";
                 hint_label.innerHTML = "* Note Title can not be empty";
@@ -519,14 +527,39 @@ class CreatePage extends HTMLElement {
 
                 setState({state: 'main'});
             }
+            else{
+              if (title_label.value.length ==0) {
+                hint_label.style.height = "20px";
+                hint_label.innerHTML = "* Event Title can not be empty";
+                return;
+            } else {
+                hint_label.innerHTML = "";
+                hint_label.style.height = "0px";
+            }
+            
+            if (select_date.value.length ==0) {
+                hint_label.style.height = "20px";
+                hint_label.innerHTML = "* Event Date can not be empty";
+                return;
+            } else {
+                hint_label.innerHTML = "";
+                hint_label.style.height = "0px";
+            }
+                console.log('creating Event' + title_label.value + 'date:' + select_date.value);
+                createEntry(new Event(title_label.value, new Date(select_date.value)));
+
+                setState({state: 'main'});
+            }
         });
         
     }
     
+
     setupTaskAndGoalButton() {
         let goal_button = this.shadowRoot.querySelector(".choose-goal");
         let task_button = this.shadowRoot.querySelector(".choose-task");
         let note_button = this.shadowRoot.querySelector(".choose-node");
+        let event_button = this.shadowRoot.querySelector(".choose-event");
         let goal_view =  this.shadowRoot.querySelector(".goal-view");
         let task_view =  this.shadowRoot.querySelector(".task-view");
 
@@ -539,6 +572,7 @@ class CreatePage extends HTMLElement {
             goal_button.style.backgroundColor = "orange";
             task_button.style.backgroundColor = "white";
             note_button.style.backgroundColor = "white";
+            event_button.style.backgroundColor = "white";
             goal_view.hidden = false;
             goal_view.style.zIndex = "1000"
             task_view.style.zIndex = "-1"
@@ -551,6 +585,7 @@ class CreatePage extends HTMLElement {
             task_button.style.backgroundColor = "orange";
             goal_button.style.backgroundColor = "white";
             note_button.style.backgroundColor = "white";
+            event_button.style.backgroundColor = "white";
             goal_view.hidden = true;
             task_view.hidden = false;
             task_view.style.zIndex = "1000"
@@ -563,10 +598,21 @@ class CreatePage extends HTMLElement {
             note_button.style.backgroundColor = "orange";
             goal_button.style.backgroundColor = "white";
             task_button.style.backgroundColor = "white";
+            event_button.style.backgroundColor = "white";
+            goal_view.hidden = true;
+            task_view.hidden = true;
+        
+        })
+        
+        event_button.addEventListener('click', function () {
+            note_button.style.backgroundColor = "white";
+            goal_button.style.backgroundColor = "white";
+            task_button.style.backgroundColor = "white";
+            event_button.style.backgroundColor = "orange";
             goal_view.hidden = true;
             task_view.hidden = true;
         })
-        
+
         goal_button.click();
     }
 
