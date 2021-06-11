@@ -1,6 +1,6 @@
 // <plan-Node> custom web component
-import { Goal, Task } from "../classes/entry_classes.js";
-import { createEntry } from "../storage/userDB.js";
+import { Goal, Task, Note } from "../classes/entry_classes.js";
+import { createEntry, getGoals } from "../storage/userDB.js";
 import { router } from '../router/router.js'; // Router imported so you can use it to manipulate your SPA app here
 const setState = router.setState;
 
@@ -497,7 +497,27 @@ class CreatePage extends HTMLElement {
                 setState({ state: 'main' });
             }
             else{
-              console.log('note-view');
+              if (title_label.value.length ==0) {
+                hint_label.style.height = "20px";
+                hint_label.innerHTML = "* Note Title can not be empty";
+                return;
+            } else {
+                hint_label.innerHTML = "";
+                hint_label.style.height = "0px";
+            }
+            
+            if (select_date.value.length ==0) {
+                hint_label.style.height = "20px";
+                hint_label.innerHTML = "* Note Date can not be empty";
+                return;
+            } else {
+                hint_label.innerHTML = "";
+                hint_label.style.height = "0px";
+            }
+                console.log('creating note' + title_label.value + 'date:' + select_date.value);
+                createEntry(new Note(title_label.value, new Date(select_date.value)));
+
+                setState({state: 'main'});
             }
         });
         

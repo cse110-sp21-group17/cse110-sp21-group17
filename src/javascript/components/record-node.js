@@ -119,14 +119,14 @@ class RecordNode extends HTMLElement {
                 // handle like note
                 let li = document.createElement("li");
                 li.className = "note";
-                li.innerText = entry.description;
+                li.innerText = entry.text;
                 this.shadowRoot.querySelector("ul").appendChild(li);
             } else if (entry instanceof Event) {
                 // handle like note
                 let li = document.createElement("li");
                 // TODO: event completeness
                 li.className = "event-inc";
-                li.innerText = entry.description;
+                li.innerText = entry.title;
                 this.shadowRoot.querySelector("ul").appendChild(li);
             } else {
                 // it's a task.
