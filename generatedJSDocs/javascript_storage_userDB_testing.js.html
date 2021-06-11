@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: javascript/storage/userDB.js</title>
+    <title>JSDoc: Source: javascript/storage/userDB_testing.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: javascript/storage/userDB.js</h1>
+    <h1 class="page-title">Source: javascript/storage/userDB_testing.js</h1>
 
     
 
@@ -27,6 +27,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import { Note, Task, Subtask, Event, Goal, Entry } from '../classes/entry_classes.js';
+import { Dexie } from 'dexie';
 
 export let db; //Global database variable
 
