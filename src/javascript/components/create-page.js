@@ -45,6 +45,7 @@ class CreatePage extends HTMLElement {
             height: 35px;
             border: 1.5px solid gray;
             border-radius: 15px;
+            user-action:none;
         }
 
         .choose-area  .choose-node {
