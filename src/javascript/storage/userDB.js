@@ -1,5 +1,5 @@
 import { Note, Task, Subtask, Event, Goal, Entry } from '../classes/entry_classes.js';
-import Dexie from 'dexie';
+import { Dexie } from 'https://unpkg.com/dexie@latest/dist/dexie.mjs';
 
 export let db; //Global database variable
 
