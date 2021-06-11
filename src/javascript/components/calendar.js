@@ -15,10 +15,10 @@
 import { router } from '../router/router.js'; // Router imported so you can use it to manipulate your SPA app here
 const setState = router.setState;
 
-function fmtDate(d) {
-    let options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-    return d.toLocaleString('en', options);
+function isoDate(d) {
+    return d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
 }
+
 
 export let calendar = {
     month: null,
@@ -126,7 +126,7 @@ export let calendar = {
         }
 
 
-        let key = fmtDate(this.date);
+        let key = isoDate(this.date);
         if (this.details[key] != undefined) {
             detailEl.innerHTML = this.details[key];
         }
