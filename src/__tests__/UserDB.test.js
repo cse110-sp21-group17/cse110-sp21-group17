@@ -8,9 +8,9 @@ import {
   Event,
   Goal,
   Entry,
-} from "../object_files/objects.js";
+} from "../javascript/classes/entry_classes.js";
 
-var creationTool = require("../userDB.js");
+var creationTool = require("../javascript/storage/userDB_testing.js");
 
 var date1 = new Date(1, 1, 1);
 var note1 = new Note("This is a test note", date1);

@@ -228,8 +228,10 @@ export class Entry {
 
 export class Note extends Entry {
     id;
-    constructor(text, entryDate = new Date()) {
+    constructor(description = "", text = "", entryDate = new Date(), imgURL = "") {
         super(text, entryDate);
+        this.description = description;
+        this.imgURL = imgURL;
     }
 
 }
@@ -237,11 +239,12 @@ export class Note extends Entry {
 export class Task extends Entry {
     id;
     subtaskIds = [];
-    constructor(description = "", text = "",  entryDate = new Date(), goal = "", isCompleted = false) {
+    constructor(description = "", text = "",  entryDate = new Date(), goal = "", isCompleted = false, imgURL = "") {
         super(text, entryDate);
         this.description = description;
         this.goal = goal;
         this.isCompleted = isCompleted;
+        this.imgURL = imgURL;
     }
 }
 

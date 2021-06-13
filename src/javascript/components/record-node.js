@@ -1,4 +1,9 @@
-import { Task, Note, Event } from "../src/object_files/objects.js";
+import { Task, Note, Event } from "../classes/entry_classes.js";
+
+function fmtDate(d) {
+    let options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    return d.toLocaleString('en', options);
+}
 
 // <record-node> custom web component
 class RecordNode extends HTMLElement {
@@ -97,6 +102,10 @@ class RecordNode extends HTMLElement {
                   content: "◆ ";
               }
 
+              h2.node-date {
+                  padding-left: 0.75rem;
+                  padding-top: 1rem;
+              }
 
           </style>
           <article class="node">
@@ -113,7 +122,8 @@ class RecordNode extends HTMLElement {
     
     // Just like the entry-page  Update the node by the node-list ----- on router.js file's  "gotoPage" function state "mainPage"
     set node(node) {
-        this.shadowRoot.querySelector('.node-date').innerText = node.date;
+        // parse date
+        this.shadowRoot.querySelector('.node-date').innerText = fmtDate(new Date(node.date));
         for (let entry of node.entries) {
             if (entry instanceof Note) {
                 // handle like note

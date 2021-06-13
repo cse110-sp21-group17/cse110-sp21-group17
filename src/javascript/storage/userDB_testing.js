@@ -1,4 +1,5 @@
 import { Note, Task, Subtask, Event, Goal, Entry } from '../classes/entry_classes.js';
+import { Dexie } from 'dexie';
 
 export let db; //Global database variable
 

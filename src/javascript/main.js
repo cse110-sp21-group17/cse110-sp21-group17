@@ -1,4 +1,4 @@
-import { router, gotoPage } from './router/router.js'; // Router imported so you can use it to manipulate your SPA app here
+import { router } from './router/router.js'; // Router imported so you can use it to manipulate your SPA app here
 
 //make sure service workers are supported.
 if ('serviceWorker' in navigator) {
